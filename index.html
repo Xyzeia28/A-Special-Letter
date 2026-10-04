@@ -205,7 +205,6 @@ p {
   max-height: 62vh;
   overflow-y: auto;
   padding: 10px 18px;
-  scrollbar-width: thin;
 }
 
 .long-message p {
@@ -359,6 +358,11 @@ button:active {
   color: rgba(255,255,255,.4);
 }
 
+#needContinue {
+  display: none;
+  margin-top: 5px;
+}
+
 @media (max-width: 650px) {
   .scene {
     padding: 22px;
@@ -405,14 +409,22 @@ button:active {
 <section class="scene active" id="scene1">
   <div class="content">
     <div class="eyebrow">A quiet place for you</div>
+
     <h1>A Little Place<br>to Stay</h1>
+
     <p>
       You don't have to know where you're going yet.
       You don't have to have everything figured out.
       For a little while, you can simply be here.
     </p>
-    <button class="primary" onclick="beginExperience()">Enter</button>
-    <div class="hint">Your music will begin when you enter</div>
+
+    <button class="primary" onclick="beginExperience()">
+      Enter
+    </button>
+
+    <div class="hint">
+      Your music will begin when you enter
+    </div>
   </div>
 </section>
 
@@ -420,41 +432,77 @@ button:active {
 <section class="scene" id="scene2">
   <div class="content">
     <div class="eyebrow">Before anything else</div>
+
     <h2>Breathe.</h2>
+
     <p>
       Slowly.<br>
       You made it here.
       That's enough for this moment.
     </p>
-    <button onclick="nextPage()">I'm here</button>
+
+    <button onclick="nextPage()">
+      I'm here
+    </button>
   </div>
 </section>
 
 <!-- SCENE 3 -->
 <section class="scene" id="scene3">
   <div class="content">
-    <div class="eyebrow">Choose what you need</div>
-    <h2>What brought you here?</h2>
+
+    <div class="eyebrow">
+      Choose what you need
+    </div>
+
+    <h2>
+      What brought you here?
+    </h2>
 
     <div class="buttons">
-      <button onclick="chooseNeed('rest')">I need rest</button>
-      <button onclick="chooseNeed('comfort')">I need comfort</button>
-      <button onclick="chooseNeed('hope')">I need hope</button>
+      <button onclick="chooseNeed('rest')">
+        I need rest
+      </button>
+
+      <button onclick="chooseNeed('comfort')">
+        I need comfort
+      </button>
+
+      <button onclick="chooseNeed('hope')">
+        I need hope
+      </button>
     </div>
 
     <p id="needMessage"></p>
+
+    <!-- NEW CONTINUE BUTTON -->
+    <button
+      id="needContinue"
+      class="primary"
+      onclick="nextPage()">
+      Continue
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 4 -->
 <section class="scene" id="scene4">
   <div class="content">
-    <div class="eyebrow">A few things worth remembering</div>
-    <h2>Open a memory.</h2>
+
+    <div class="eyebrow">
+      A few things worth remembering
+    </div>
+
+    <h2>
+      Open a memory.
+    </h2>
 
     <div class="memories">
+
       <div class="memory" onclick="openMemory(this)">
         <span>☾</span>
+
         <p>
           There were nights you thought you couldn't make it
           through, and somehow morning still found you.
@@ -463,6 +511,7 @@ button:active {
 
       <div class="memory" onclick="openMemory(this)">
         <span>♡</span>
+
         <p>
           There are people, places, songs, and tiny moments
           that prove your life has held warmth before.
@@ -471,68 +520,116 @@ button:active {
 
       <div class="memory" onclick="openMemory(this)">
         <span>✦</span>
+
         <p>
           You have already survived versions of yourself
           that you once thought would never make it.
         </p>
       </div>
+
     </div>
 
-    <button id="memoryContinue" style="display:none" onclick="nextPage()">
+    <button
+      id="memoryContinue"
+      style="display:none"
+      onclick="nextPage()">
       Keep going
     </button>
+
   </div>
 </section>
 
 <!-- SCENE 5 -->
 <section class="scene" id="scene5">
   <div class="content">
-    <div class="big-heart">♡</div>
-    <h2>You don't have to earn rest.</h2>
+
+    <div class="big-heart">
+      ♡
+    </div>
+
+    <h2>
+      You don't have to earn rest.
+    </h2>
+
     <p>
       You don't need to accomplish something first.
       You don't need to become better before you're allowed
       to be tired.
     </p>
+
     <p>
       You are allowed to stop.
       You are allowed to breathe.
       You are allowed to exist without proving that your
       existence was worthwhile.
     </p>
-    <button onclick="nextPage()">I understand</button>
+
+    <button onclick="nextPage()">
+      I understand
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 6 -->
 <section class="scene" id="scene6">
   <div class="content">
-    <div class="eyebrow">No one is judging you here</div>
-    <h2>If nobody judged you...</h2>
+
+    <div class="eyebrow">
+      No one is judging you here
+    </div>
+
+    <h2>
+      If nobody judged you...
+    </h2>
+
     <p>
       What would you finally admit that you need?
     </p>
 
     <div class="buttons">
-      <button onclick="showChoice('someone to stay')">Someone to stay</button>
-      <button onclick="showChoice('permission to rest')">Permission to rest</button>
-      <button onclick="showChoice('a fresh start')">A fresh start</button>
-      <button onclick="showChoice('to believe again')">To believe again</button>
+
+      <button onclick="showChoice('someone to stay')">
+        Someone to stay
+      </button>
+
+      <button onclick="showChoice('permission to rest')">
+        Permission to rest
+      </button>
+
+      <button onclick="showChoice('a fresh start')">
+        A fresh start
+      </button>
+
+      <button onclick="showChoice('to believe again')">
+        To believe again
+      </button>
+
     </div>
 
     <p id="choiceResponse"></p>
 
-    <button id="choiceContinue" style="display:none" onclick="nextPage()">
+    <button
+      id="choiceContinue"
+      style="display:none"
+      onclick="nextPage()">
       Continue
     </button>
+
   </div>
 </section>
 
 <!-- SCENE 7 -->
 <section class="scene" id="scene7">
   <div class="content long-message">
-    <div class="eyebrow">A letter for the nights that hurt</div>
-    <h2>Read this slowly.</h2>
+
+    <div class="eyebrow">
+      A letter for the nights that hurt
+    </div>
+
+    <h2>
+      Read this slowly.
+    </h2>
 
     <p>
       If nobody has told you lately, let me tell you now:
@@ -597,15 +694,25 @@ button:active {
       that the entire story is supposed to end there.
     </p>
 
-    <button onclick="nextPage()">I needed this</button>
+    <button onclick="nextPage()">
+      I needed this
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 8 -->
 <section class="scene" id="scene8">
   <div class="content">
-    <div class="eyebrow">Just for tonight</div>
-    <h2>Would you stay<br>a little longer?</h2>
+
+    <div class="eyebrow">
+      Just for tonight
+    </div>
+
+    <h2>
+      Would you stay<br>
+      a little longer?
+    </h2>
 
     <p>
       Not forever.
@@ -614,47 +721,83 @@ button:active {
     </p>
 
     <div class="buttons">
-      <button class="primary" onclick="stayResponse(true)">Yes</button>
-      <button onclick="stayResponse(false)">I don't know</button>
+
+      <button
+        class="primary"
+        onclick="stayResponse(true)">
+        Yes
+      </button>
+
+      <button onclick="stayResponse(false)">
+        I don't know
+      </button>
+
     </div>
 
     <p id="stayMessage"></p>
 
-    <button id="stayContinue" style="display:none" onclick="nextPage()">
+    <button
+      id="stayContinue"
+      style="display:none"
+      onclick="nextPage()">
       Next
     </button>
+
   </div>
 </section>
 
 <!-- SCENE 9 -->
 <section class="scene" id="scene9">
   <div class="content">
-    <div class="eyebrow">You found something hidden</div>
-    <h2>One little secret.</h2>
+
+    <div class="eyebrow">
+      You found something hidden
+    </div>
+
+    <h2>
+      One little secret.
+    </h2>
 
     <p>
       Somewhere in the middle of all this,
       there is a sentence I want you to keep.
     </p>
 
-    <button class="primary" onclick="revealSecret()">Reveal it</button>
+    <button
+      class="primary"
+      onclick="revealSecret()">
+      Reveal it
+    </button>
 
-    <p id="secret" style="display:none">
+    <p
+      id="secret"
+      style="display:none">
       You are allowed to become someone your past self
       would have been proud to meet.
     </p>
 
-    <button id="secretContinue" style="display:none" onclick="nextPage()">
+    <button
+      id="secretContinue"
+      style="display:none"
+      onclick="nextPage()">
       Keep it
     </button>
+
   </div>
 </section>
 
 <!-- SCENE 10 -->
 <section class="scene" id="scene10">
   <div class="content">
-    <div class="eyebrow">A message from the future</div>
-    <h2>Imagine meeting yourself<br>one year from now.</h2>
+
+    <div class="eyebrow">
+      A message from the future
+    </div>
+
+    <h2>
+      Imagine meeting yourself<br>
+      one year from now.
+    </h2>
 
     <p>
       She looks back at this exact moment.
@@ -667,35 +810,64 @@ button:active {
       "Thank you for staying."
     </p>
 
-    <button onclick="nextPage()">Meet her</button>
+    <button onclick="nextPage()">
+      Meet her
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 11 -->
 <section class="scene" id="scene11">
   <div class="content">
-    <div class="eyebrow">One tiny promise</div>
-    <h2>What will you give yourself?</h2>
+
+    <div class="eyebrow">
+      One tiny promise
+    </div>
+
+    <h2>
+      What will you give yourself?
+    </h2>
 
     <div class="buttons">
-      <button onclick="promise('rest')">I will rest</button>
-      <button onclick="promise('try')">I will try again</button>
-      <button onclick="promise('be kind')">I will be kinder to myself</button>
+
+      <button onclick="promise('rest')">
+        I will rest
+      </button>
+
+      <button onclick="promise('try')">
+        I will try again
+      </button>
+
+      <button onclick="promise('be kind')">
+        I will be kinder to myself
+      </button>
+
     </div>
 
     <p id="promiseMessage"></p>
 
-    <button id="promiseContinue" style="display:none" onclick="nextPage()">
+    <button
+      id="promiseContinue"
+      style="display:none"
+      onclick="nextPage()">
       I promise
     </button>
+
   </div>
 </section>
 
 <!-- SCENE 12 -->
 <section class="scene" id="scene12">
   <div class="content">
-    <div class="eyebrow">Almost morning</div>
-    <h2>The sky is changing.</h2>
+
+    <div class="eyebrow">
+      Almost morning
+    </div>
+
+    <h2>
+      The sky is changing.
+    </h2>
 
     <p>
       Nothing dramatic happened.
@@ -706,15 +878,26 @@ button:active {
       But you stayed.
     </p>
 
-    <button class="primary" onclick="watchMorning()">Watch it change</button>
+    <button
+      class="primary"
+      onclick="watchMorning()">
+      Watch it change
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 13 -->
 <section class="scene" id="scene13">
   <div class="content">
-    <div class="eyebrow">Good morning</div>
-    <h2>You made it.</h2>
+
+    <div class="eyebrow">
+      Good morning
+    </div>
+
+    <h2>
+      You made it.
+    </h2>
 
     <p>
       Maybe today will be difficult.
@@ -727,18 +910,28 @@ button:active {
       everything right now.
     </p>
 
-    <button onclick="nextPage()">One more thing</button>
+    <button onclick="nextPage()">
+      One more thing
+    </button>
+
   </div>
 </section>
 
 <!-- SCENE 14 -->
 <section class="scene" id="scene14">
   <div class="content">
-    <div class="big-heart">♡</div>
 
-    <div class="eyebrow">Before you leave</div>
+    <div class="big-heart">
+      ♡
+    </div>
 
-    <h2>Keep going.</h2>
+    <div class="eyebrow">
+      Before you leave
+    </div>
+
+    <h2>
+      Keep going.
+    </h2>
 
     <p>
       Not because life is always easy.
@@ -776,6 +969,7 @@ button:active {
       You stayed.
       And I'm proud of you for that.
     </p>
+
   </div>
 </section>
 
@@ -796,6 +990,7 @@ function startMusic() {
     if (music.paused && soundOn) {
       music.play().catch(() => {})
     }
+
     return
   }
 
@@ -855,7 +1050,9 @@ function showPage(number) {
   }
 
   progress.textContent =
-    String(number).padStart(2, "0") + " / " + String(totalPages).padStart(2, "0")
+    String(number).padStart(2, "0") +
+    " / " +
+    String(totalPages).padStart(2, "0")
 
   updateTheme()
 
@@ -884,21 +1081,28 @@ function beginExperience() {
   nextPage()
 }
 
+/* PAGE 3 */
 function chooseNeed(type) {
   const message = document.getElementById("needMessage")
+  const continueButton = document.getElementById("needContinue")
 
   const messages = {
     rest:
       "Then rest. You don't need permission from anyone else. Put down the things you cannot carry tonight.",
+
     comfort:
       "Then let yourself be comforted. You don't have to be strong every second you're alive.",
+
     hope:
       "Then borrow a little hope from this place. You don't have to believe in the whole future. Just believe tomorrow is possible."
   }
 
   message.textContent = messages[type]
+
+  continueButton.style.display = "inline-block"
 }
 
+/* PAGE 4 */
 function openMemory(card) {
   if (!card.classList.contains("open")) {
     card.classList.add("open")
@@ -906,19 +1110,23 @@ function openMemory(card) {
   }
 
   if (memoriesOpened >= 2) {
-    document.getElementById("memoryContinue").style.display = "inline-block"
+    document.getElementById("memoryContinue").style.display =
+      "inline-block"
   }
 }
 
+/* PAGE 6 */
 function showChoice(choice) {
   const response = document.getElementById("choiceResponse")
 
   response.textContent =
     `Then let that be enough for tonight. You don't have to explain why you need ${choice}. Needing something doesn't make you weak.`
 
-  document.getElementById("choiceContinue").style.display = "inline-block"
+  document.getElementById("choiceContinue").style.display =
+    "inline-block"
 }
 
+/* PAGE 8 */
 function stayResponse(staying) {
   const message = document.getElementById("stayMessage")
 
@@ -930,29 +1138,41 @@ function stayResponse(staying) {
       "That's okay. You don't have to know. Sometimes making it through the next few minutes is already enough."
   }
 
-  document.getElementById("stayContinue").style.display = "inline-block"
+  document.getElementById("stayContinue").style.display =
+    "inline-block"
 }
 
+/* PAGE 9 */
 function revealSecret() {
   document.getElementById("secret").style.display = "block"
-  document.getElementById("secretContinue").style.display = "inline-block"
+
+  document.getElementById("secretContinue").style.display =
+    "inline-block"
+
   createParticles(20)
 }
 
+/* PAGE 11 */
 function promise(type) {
   const messages = {
     rest:
       "Good. Rest is not quitting. Rest is how you give yourself enough strength to continue.",
+
     try:
       "That's all anyone can really ask of you. You don't have to win today. Just try again when you're ready.",
+
     "be kind":
       "Keep that promise close. You deserve the same patience you give to everyone else."
   }
 
-  document.getElementById("promiseMessage").textContent = messages[type]
-  document.getElementById("promiseContinue").style.display = "inline-block"
+  document.getElementById("promiseMessage").textContent =
+    messages[type]
+
+  document.getElementById("promiseContinue").style.display =
+    "inline-block"
 }
 
+/* PAGE 12 */
 function watchMorning() {
   document.body.classList.add("dawn")
   createParticles(30)
@@ -962,14 +1182,22 @@ function watchMorning() {
   }, 1200)
 }
 
+/* PARTICLES */
 function createParticles(amount) {
   for (let i = 0; i < amount; i++) {
+
     const particle = document.createElement("div")
+
     particle.className = "particle"
 
-    particle.style.left = Math.random() * 100 + "vw"
-    particle.style.top = (50 + Math.random() * 50) + "vh"
-    particle.style.animationDelay = Math.random() * 1.5 + "s"
+    particle.style.left =
+      Math.random() * 100 + "vw"
+
+    particle.style.top =
+      (50 + Math.random() * 50) + "vh"
+
+    particle.style.animationDelay =
+      Math.random() * 1.5 + "s"
 
     document.body.appendChild(particle)
 
@@ -979,7 +1207,9 @@ function createParticles(amount) {
   }
 }
 
+/* KEYBOARD NAVIGATION */
 document.addEventListener("keydown", event => {
+
   if (
     event.key === "ArrowRight" ||
     event.key === " "
@@ -993,6 +1223,7 @@ document.addEventListener("keydown", event => {
   }
 })
 
+/* MUSIC ERROR */
 music.addEventListener("error", () => {
   console.warn(
     "music.mp3 could not be loaded. Make sure music.mp3 is in the same folder as index.html."
