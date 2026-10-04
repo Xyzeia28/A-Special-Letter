@@ -870,54 +870,54 @@
 
 
     /* =========================================================
-       TABLET / MOBILE
+       RESPONSIVE MOBILE
+       DESKTOP ABOVE IS PRESERVED
     ========================================================= */
 
     @media (max-width: 650px) {
 
-      /*
-        IMPORTANT:
-        The mobile card now uses dynamic viewport height.
-        This behaves better with Android browser bars.
-      */
-
       .scene {
         padding:
           58px
-          9px
-          9px;
+          10px
+          10px;
       }
 
       .card {
         width: 100%;
 
         height:
-          calc(100dvh - 67px);
+          calc(100dvh - 70px);
 
         max-height:
-          calc(100dvh - 67px);
+          calc(100dvh - 70px);
 
         padding:
-          17px
-          14px;
+          18px
+          15px;
 
-        border-radius: 20px;
+        border-radius: 22px;
       }
 
 
       /* TOP BAR */
 
       .topbar {
-        top: 9px;
+        top: 10px;
 
-        left: 10px;
-        right: 10px;
+        left: 11px;
+        right: 11px;
       }
 
       #progress {
+        min-height: 30px;
+
+        display: flex;
+        align-items: center;
+
         padding:
           5px
-          9px;
+          10px;
 
         font-size: .68rem;
 
@@ -925,8 +925,10 @@
       }
 
       #soundButton {
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
 
         font-size: .9rem;
       }
@@ -935,246 +937,367 @@
       /* BACKGROUND */
 
       .moon {
-        width: 62px;
-        height: 62px;
+        width: 68px;
+        height: 68px;
 
-        right: 7%;
-        top: 9%;
+        right: 6%;
+        top: 8%;
       }
 
       .sun {
-        width: 120px;
-        height: 120px;
+        width: 125px;
+        height: 125px;
       }
 
 
       /* TEXT */
 
       .eyebrow {
-        margin-bottom: 7px;
+        margin-bottom: 8px;
 
-        font-size: .63rem;
+        font-size: .64rem;
 
-        letter-spacing: .14em;
+        letter-spacing: .15em;
+
+        line-height: 1.3;
       }
 
       h1 {
         font-size:
           clamp(
-            1.65rem,
-            7.5vw,
-            2.35rem
+            1.75rem,
+            8vw,
+            2.45rem
           );
 
         line-height: 1.08;
 
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
 
       h2 {
         font-size:
           clamp(
-            1.35rem,
-            6vw,
-            1.9rem
+            1.45rem,
+            6.5vw,
+            2rem
           );
 
         line-height: 1.12;
 
-        margin-bottom: 10px;
+        margin-bottom: 11px;
       }
 
       p {
         max-width: 100%;
 
-        margin-bottom: 9px;
+        margin-bottom: 10px;
 
         font-size:
           clamp(
-            .84rem,
-            3.6vw,
-            .98rem
+            .87rem,
+            3.7vw,
+            1rem
           );
 
-        line-height: 1.48;
+        line-height: 1.52;
       }
 
       .soft {
-        font-size: .78rem;
+        font-size: .8rem;
       }
 
 
-      /* BUTTONS */
+      /* =====================================================
+         NORMAL BUTTONS
+         Keep them comfortable to tap.
+      ===================================================== */
 
       .buttons {
-        gap: 7px;
+        gap: 9px;
 
-        margin-top: 13px;
+        margin-top: 15px;
       }
 
       button.primary,
       button.ghost {
+        min-height: 44px;
+
         width: auto;
 
-        min-height: 38px;
-
         padding:
-          9px
-          16px;
+          10px
+          17px;
 
-        font-size: .84rem;
+        font-size: .86rem;
+
+        line-height: 1.2;
       }
 
 
-      /* CHOICE GRID */
+      /* =====================================================
+         CHOICE BUTTONS
+         Three choices remain three balanced buttons.
+         This prevents the ugly 2 + 1 layout.
+      ===================================================== */
 
       .choice-grid {
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(3, minmax(0, 1fr));
 
-        gap: 7px;
+        gap: 8px;
 
-        margin-top: 12px;
+        margin-top: 14px;
       }
 
       .choice {
-        min-height: 68px;
+        min-width: 0;
+
+        min-height: 92px;
 
         padding:
-          10px
+          11px
           7px;
 
-        border-radius: 14px;
+        border-radius: 16px;
 
-        font-size: .76rem;
+        font-size: .73rem;
 
-        line-height: 1.3;
+        line-height: 1.35;
+
+        overflow-wrap: anywhere;
       }
 
       .choice strong {
-        margin-bottom: 3px;
+        margin-bottom: 5px;
 
-        font-size: .86rem;
+        font-size: .85rem;
+
+        line-height: 1.2;
       }
 
 
-      /* RESPONSE */
+      /* =====================================================
+         RESPONSE
+      ===================================================== */
 
       .response {
-        min-height: 38px;
+        min-height: 42px;
 
-        margin-top: 10px;
+        margin-top: 11px;
 
-        font-size: .78rem;
+        padding:
+          0
+          3px;
 
-        line-height: 1.4;
+        font-size: .8rem;
+
+        line-height: 1.45;
       }
 
 
-      /* MEMORY GRID */
+      /* =====================================================
+         MEMORY CARDS
+         Two-column layout + third card spans the row.
+         Much cleaner than leaving one tiny card alone.
+      ===================================================== */
 
       .memory-grid {
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(2, minmax(0, 1fr));
 
-        gap: 7px;
+        gap: 8px;
 
-        margin-top: 12px;
+        margin-top: 14px;
       }
 
       .memory-card {
-        min-height: 82px;
+        min-width: 0;
+
+        min-height: 104px;
 
         padding:
-          10px
-          7px;
+          12px
+          9px;
 
-        border-radius: 15px;
+        border-radius: 17px;
 
-        font-size: .76rem;
+        font-size: .75rem;
 
-        line-height: 1.35;
+        line-height: 1.4;
+
+        overflow-wrap: anywhere;
+      }
+
+      .memory-card:nth-child(3) {
+        grid-column:
+          1 / -1;
       }
 
       .memory-card strong {
-        font-size: .84rem;
+        display: block;
+
+        font-size: .88rem;
+
+        line-height: 1.2;
       }
 
       .memory-card .inside {
-        margin-top: 6px;
+        margin-top: 7px;
 
-        font-size: .72rem;
-
-        line-height: 1.35;
-      }
-
-
-      /* LETTER */
-
-      .letter {
-        padding-right: 5px;
-      }
-
-      .letter p {
-        margin-bottom: 12px;
-      }
-
-
-      /* SECRET */
-
-      .secret {
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-
-      .secret.visible {
-        max-height: 300px;
-
-        margin-top: 12px;
-
-        padding-top: 12px;
-        padding-bottom: 12px;
-
-        overflow-y: auto;
-      }
-
-      .secret p {
-        font-size: .8rem;
+        font-size: .73rem;
 
         line-height: 1.4;
       }
 
 
-      /* FINAL PAGE */
+      /* =====================================================
+         LETTER
+      ===================================================== */
+
+      .letter {
+        padding-right: 6px;
+      }
+
+      .letter p {
+        margin-bottom: 13px;
+
+        line-height: 1.55;
+      }
+
+
+      /* =====================================================
+         SECRET
+      ===================================================== */
+
+      .secret {
+        min-height: 0;
+
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .secret.visible {
+        max-height:
+          min(30vh, 245px);
+
+        margin-top: 13px;
+
+        padding-top: 13px;
+        padding-bottom: 13px;
+
+        overflow-y: auto;
+
+        flex-shrink: 1;
+      }
+
+      .secret p {
+        margin-bottom: 9px;
+
+        font-size: .82rem;
+
+        line-height: 1.45;
+      }
+
+
+      /* =====================================================
+         FINAL PAGE
+      ===================================================== */
 
       .final-card {
         height:
-          calc(100dvh - 67px);
+          calc(100dvh - 70px);
 
         max-height:
-          calc(100dvh - 67px);
+          calc(100dvh - 70px);
       }
 
       .final-message {
-        padding-right: 5px;
+        padding-right: 6px;
       }
 
       .final-message p {
-        margin-bottom: 12px;
+        margin-bottom: 13px;
+
+        line-height: 1.55;
       }
 
       .final-message .closing {
-        margin-top: 15px;
+        margin-top: 17px;
 
-        font-size: 1rem;
+        font-size: 1.05rem;
+
+        line-height: 1.45;
       }
 
       .final-actions {
-        padding-top: 10px;
+        padding-top: 12px;
+
+        gap: 8px;
       }
 
       .final-actions button {
-        min-width: 120px;
+        min-width: 125px;
+      }
+    }
+
+
+    /* =========================================================
+       SMALL PHONES
+    ========================================================= */
+
+    @media (max-width: 430px) {
+
+      .scene {
+        padding:
+          57px
+          9px
+          9px;
+      }
+
+      .card {
+        padding:
+          17px
+          13px;
+
+        border-radius: 20px;
+      }
+
+      .choice {
+        min-height: 88px;
+
+        padding:
+          10px
+          6px;
+
+        font-size: .7rem;
+      }
+
+      .choice strong {
+        font-size: .82rem;
+      }
+
+      .memory-card {
+        min-height: 98px;
+
+        padding:
+          11px
+          8px;
+      }
+
+      .memory-card .inside {
+        font-size: .71rem;
+      }
+
+      button.primary,
+      button.ghost {
+        min-height: 44px;
+
+        padding:
+          10px
+          15px;
+
+        font-size: .83rem;
       }
     }
 
@@ -1187,27 +1310,35 @@
 
       .scene {
         padding:
-          55px
+          54px
           7px
           7px;
       }
 
       .card {
+        height:
+          calc(100dvh - 65px);
+
+        max-height:
+          calc(100dvh - 65px);
+
         padding:
           14px
-          11px;
+          10px;
 
         border-radius: 18px;
       }
 
       .topbar {
-        top: 7px;
+        top: 8px;
 
         left: 8px;
         right: 8px;
       }
 
       #progress {
+        min-height: 28px;
+
         padding:
           4px
           8px;
@@ -1216,65 +1347,150 @@
       }
 
       #soundButton {
-        width: 31px;
-        height: 31px;
+        width: 34px;
+        height: 34px;
+      }
+
+      .eyebrow {
+        font-size: .59rem;
+
+        margin-bottom: 6px;
       }
 
       h1 {
-        font-size: 1.55rem;
+        font-size: 1.58rem;
+
+        margin-bottom: 9px;
       }
 
       h2 {
         font-size: 1.3rem;
+
+        margin-bottom: 8px;
       }
 
       p {
         font-size: .78rem;
 
-        line-height: 1.4;
+        line-height: 1.42;
+
+        margin-bottom: 8px;
+      }
+
+      .soft {
+        font-size: .73rem;
+      }
+
+
+      /* Keep three choices balanced */
+
+      .choice-grid {
+        gap: 6px;
+
+        margin-top: 10px;
       }
 
       .choice {
-        min-height: 62px;
+        min-height: 82px;
 
         padding:
-          8px
+          9px
           5px;
 
-        font-size: .7rem;
+        border-radius: 13px;
+
+        font-size: .65rem;
+
+        line-height: 1.3;
       }
 
       .choice strong {
-        font-size: .78rem;
+        font-size: .76rem;
+
+        margin-bottom: 3px;
+      }
+
+
+      /* Memory cards */
+
+      .memory-grid {
+        gap: 6px;
+
+        margin-top: 10px;
       }
 
       .memory-card {
-        min-height: 72px;
+        min-height: 88px;
 
         padding:
-          8px
-          5px;
+          9px
+          6px;
 
-        font-size: .7rem;
+        border-radius: 14px;
+
+        font-size: .67rem;
+      }
+
+      .memory-card strong {
+        font-size: .78rem;
       }
 
       .memory-card .inside {
-        font-size: .67rem;
+        font-size: .64rem;
+
+        line-height: 1.35;
+      }
+
+
+      /* Buttons remain touchable */
+
+      .buttons {
+        gap: 6px;
+
+        margin-top: 10px;
       }
 
       button.primary,
       button.ghost {
-        min-height: 35px;
+        min-height: 44px;
 
         padding:
-          8px
-          13px;
+          9px
+          12px;
 
-        font-size: .76rem;
+        font-size: .75rem;
       }
 
-      .buttons {
+      .response {
+        min-height: 34px;
+
+        margin-top: 8px;
+
+        font-size: .71rem;
+
+        line-height: 1.4;
+      }
+
+      .secret.visible {
+        max-height: 215px;
+
         margin-top: 10px;
+
+        padding:
+          10px
+          11px;
+      }
+
+      .secret p {
+        font-size: .72rem;
+
+        line-height: 1.4;
+
+        margin-bottom: 7px;
+      }
+
+      .final-actions button {
+        min-width: 112px;
       }
     }
 
@@ -1288,16 +1504,16 @@
       and (max-width: 650px) {
 
       .scene {
-        padding-top: 51px;
+        padding-top: 50px;
         padding-bottom: 6px;
       }
 
       .card {
         height:
-          calc(100dvh - 57px);
+          calc(100dvh - 56px);
 
         max-height:
-          calc(100dvh - 57px);
+          calc(100dvh - 56px);
 
         padding:
           12px
@@ -1307,79 +1523,122 @@
       .eyebrow {
         margin-bottom: 5px;
 
-        font-size: .58rem;
+        font-size: .57rem;
       }
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.48rem;
 
-        margin-bottom: 7px;
+        margin-bottom: 6px;
       }
 
       h2 {
-        font-size: 1.25rem;
+        font-size: 1.23rem;
 
-        margin-bottom: 7px;
+        margin-bottom: 6px;
       }
 
       p {
-        margin-bottom: 7px;
+        margin-bottom: 6px;
 
-        font-size: .76rem;
+        font-size: .74rem;
 
-        line-height: 1.35;
+        line-height: 1.34;
       }
 
-      .choice-grid,
-      .memory-grid {
-        margin-top: 8px;
+      .soft {
+        font-size: .7rem;
+      }
+
+      .choice-grid {
+        margin-top: 7px;
 
         gap: 5px;
       }
 
       .choice {
-        min-height: 57px;
+        min-height: 72px;
 
         padding:
           7px
           5px;
+
+        font-size: .63rem;
+      }
+
+      .choice strong {
+        font-size: .73rem;
+      }
+
+      .memory-grid {
+        margin-top: 7px;
+
+        gap: 5px;
       }
 
       .memory-card {
-        min-height: 65px;
+        min-height: 74px;
 
         padding:
           7px
           5px;
+
+        font-size: .64rem;
+      }
+
+      .memory-card strong {
+        font-size: .74rem;
+      }
+
+      .memory-card .inside {
+        font-size: .61rem;
       }
 
       .buttons {
-        margin-top: 8px;
+        margin-top: 7px;
 
         gap: 5px;
       }
 
       button.primary,
       button.ghost {
-        min-height: 33px;
+        min-height: 44px;
 
         padding:
-          7px
-          12px;
+          8px
+          11px;
 
-        font-size: .73rem;
+        font-size: .71rem;
       }
 
       .response {
-        margin-top: 7px;
+        margin-top: 6px;
 
-        min-height: 30px;
+        min-height: 28px;
 
-        font-size: .72rem;
+        font-size: .69rem;
+      }
+
+      .secret.visible {
+        max-height: 190px;
+
+        margin-top: 8px;
+
+        padding:
+          9px
+          10px;
+      }
+
+      .secret p {
+        font-size: .68rem;
+
+        line-height: 1.35;
+
+        margin-bottom: 6px;
       }
 
       .final-actions {
-        padding-top: 7px;
+        padding-top: 6px;
       }
     }
 
@@ -1395,46 +1654,62 @@
       .card {
         padding:
           10px
-          9px;
+          8px;
       }
 
       h1 {
-        font-size: 1.4rem;
+        font-size: 1.38rem;
       }
 
       h2 {
-        font-size: 1.18rem;
+        font-size: 1.15rem;
       }
 
       p {
-        font-size: .72rem;
+        font-size: .7rem;
 
         line-height: 1.3;
       }
 
       .choice {
-        min-height: 52px;
+        min-height: 66px;
 
-        font-size: .66rem;
+        padding:
+          6px
+          4px;
+
+        font-size: .59rem;
       }
 
       .choice strong {
-        font-size: .74rem;
+        font-size: .69rem;
       }
 
       .memory-card {
-        min-height: 58px;
+        min-height: 68px;
+
+        padding:
+          6px
+          4px;
+      }
+
+      .memory-card .inside {
+        font-size: .58rem;
       }
 
       button.primary,
       button.ghost {
-        min-height: 31px;
+        min-height: 44px;
 
         padding:
-          6px
-          10px;
+          8px
+          9px;
 
-        font-size: .7rem;
+        font-size: .68rem;
+      }
+
+      .response {
+        font-size: .65rem;
       }
     }
 
@@ -2753,11 +3028,6 @@
 
       updateTheme()
 
-      /*
-        Reset scroll position whenever
-        a new page opens.
-      */
-
       const scrollable =
         selectedScene.querySelector(
           ".letter, .final-message, .secret.visible"
@@ -3157,10 +3427,6 @@
       )
 
 
-      /*
-        Reset memory cards
-      */
-
       document
         .querySelectorAll(
           ".memory-card"
@@ -3173,10 +3439,6 @@
 
         })
 
-
-      /*
-        Reset messages
-      */
 
       document.getElementById(
         "needMessage"
@@ -3194,10 +3456,6 @@
         "promiseMessage"
       ).textContent = ""
 
-
-      /*
-        Hide conditional buttons
-      */
 
       document.getElementById(
         "needContinue"
@@ -3225,10 +3483,6 @@
         "none"
 
 
-      /*
-        Reset secret
-      */
-
       const secret =
         document.getElementById(
           "secret"
@@ -3255,10 +3509,6 @@
         "Open the secret"
 
 
-      /*
-        Reset scrollable areas
-      */
-
       document
         .querySelectorAll(
           ".letter, .final-message"
@@ -3269,10 +3519,6 @@
 
         })
 
-
-      /*
-        Return to beginning
-      */
 
       showPage(1)
 
@@ -3311,20 +3557,10 @@
           )
 
 
-        /*
-          Don't hijack keys while
-          interacting with controls.
-        */
-
         if (interactive) {
           return
         }
 
-
-        /*
-          Don't hijack keys while
-          reading long content.
-        */
 
         if (
           finalMessage ||
