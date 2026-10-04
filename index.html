@@ -3,19 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>A Little Place to Stay</title>
 
   <style>
-    :root {
-      --background: #090b20;
-      --background-two: #171b40;
-      --text: #f8f5ff;
-      --muted: #cbc7dc;
-      --accent: #c9a7ff;
-      --glass: rgba(255, 255, 255, 0.08);
-      --border: rgba(255, 255, 255, 0.16);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -30,23 +21,39 @@
     }
 
     body {
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--text);
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      color: #fff;
+
       background:
         radial-gradient(
-          circle at 50% 30%,
-          rgba(130, 110, 220, 0.2),
-          transparent 38%
+          circle at 50% 20%,
+          rgba(255, 210, 225, 0.12),
+          transparent 35%
         ),
         linear-gradient(
-          160deg,
-          var(--background),
-          var(--background-two)
+          180deg,
+          #10152d 0%,
+          #171b3b 45%,
+          #0b1026 100%
         );
-      transition: background 2s ease;
+
+      transition:
+        background 1.5s ease,
+        color 1s ease;
     }
 
-    /* ---------- SKY ---------- */
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    /* =========================
+       BACKGROUND
+    ========================= */
 
     .sky {
       position: fixed;
@@ -56,109 +63,432 @@
       z-index: 0;
     }
 
+    .moon {
+      position: absolute;
+
+      width: 110px;
+      height: 110px;
+
+      top: 9%;
+      right: 11%;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #fffdf4,
+          #f7e9d1 60%,
+          #d7c5b2
+        );
+
+      box-shadow:
+        0 0 35px rgba(255, 240, 210, 0.25),
+        0 0 100px rgba(255, 220, 200, 0.12);
+
+      transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+    }
+
     .stars {
       position: absolute;
       inset: 0;
-      background-image:
-        radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.8) 1px,
-          transparent 1.5px
-        ),
-        radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.45) 1px,
-          transparent 1.5px
-        );
-      background-size: 90px 90px, 140px 140px;
-      background-position: 20px 10px, 60px 40px;
-      transition: opacity 2s ease;
-    }
 
-    .moon {
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      top: 10%;
-      right: 10%;
-      border-radius: 50%;
-      background: #fff9dc;
-      box-shadow: 0 0 45px rgba(255, 249, 220, 0.4);
-      transition: all 2s ease;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px);
+
+      background-size:
+        110px 110px,
+        170px 170px;
+
+      background-position:
+        20px 30px,
+        80px 70px;
+
+      opacity: 0.55;
+
+      transition: opacity 1.5s ease;
     }
 
     .sun {
       position: absolute;
-      width: 160px;
-      height: 160px;
+
+      width: 170px;
+      height: 170px;
+
       left: 50%;
-      bottom: -180px;
+      bottom: -130px;
+
       transform: translateX(-50%);
+
       border-radius: 50%;
-      background: #ffe7a6;
-      box-shadow: 0 0 100px rgba(255, 210, 130, 0.7);
-      transition: all 3s ease;
-    }
 
-    body.dawn {
       background:
         radial-gradient(
-          circle at 50% 25%,
-          rgba(255, 190, 180, 0.16),
-          transparent 42%
-        ),
-        linear-gradient(
-          160deg,
-          #18152e,
-          #5a4168
+          circle,
+          #fff6c7 0%,
+          #ffd69a 45%,
+          rgba(255, 190, 130, 0) 72%
         );
-    }
 
-    body.dawn .moon {
-      opacity: 0.4;
-      transform: translateY(-20px);
-    }
-
-    body.sunrise {
-      background:
-        radial-gradient(
-          circle at 50% 25%,
-          rgba(255, 235, 180, 0.3),
-          transparent 45%
-        ),
-        linear-gradient(
-          160deg,
-          #392447,
-          #e39a82
-        );
-    }
-
-    body.sunrise .stars,
-    body.sunrise .moon {
       opacity: 0;
+
+      transition:
+        bottom 2s ease,
+        opacity 2s ease;
     }
 
-    body.sunrise .sun {
-      bottom: 12%;
+    /* =========================
+       SCENES
+    ========================= */
+
+    .scene {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 24px;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translateY(15px) scale(.98);
+
+      transition:
+        opacity .55s ease,
+        transform .55s ease,
+        visibility .55s ease;
+
+      z-index: 2;
+
+      overflow: hidden;
     }
 
-    /* ---------- PARTICLES ---------- */
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+
+      transform: translateY(0) scale(1);
+    }
+
+    .card {
+      width: min(760px, 94vw);
+      max-height: 88vh;
+
+      padding: clamp(25px, 5vw, 48px);
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.13),
+          rgba(255,255,255,.055)
+        );
+
+      border:
+        1px solid rgba(255,255,255,.13);
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.3);
+
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+
+      text-align: center;
+
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1.05;
+
+      margin-bottom: 18px;
+
+      font-weight: 500;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      margin-bottom: 16px;
+
+      font-weight: 500;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.3vw, 1.15rem);
+      line-height: 1.75;
+
+      opacity: .9;
+    }
+
+    .soft {
+      opacity: .7;
+      font-size: .95rem;
+    }
+
+    .small-label {
+      display: block;
+
+      margin-bottom: 14px;
+
+      font-size: .7rem;
+      letter-spacing: .25em;
+
+      opacity: .6;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    button {
+      border: 0;
+
+      padding: 13px 21px;
+
+      border-radius: 999px;
+
+      color: white;
+
+      background:
+        rgba(255,255,255,.12);
+
+      border:
+        1px solid rgba(255,255,255,.15);
+
+      transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+
+      background:
+        rgba(255,255,255,.19);
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,.15);
+    }
+
+    button:active {
+      transform: scale(.97);
+    }
+
+    button.primary {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,170,200,.35),
+          rgba(180,170,255,.35)
+        );
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    /* =========================
+       TOP CONTROLS
+    ========================= */
+
+    #soundButton {
+      position: fixed;
+
+      top: 18px;
+      right: 18px;
+
+      z-index: 20;
+
+      width: 42px;
+      height: 42px;
+
+      padding: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.1);
+    }
+
+    #progress {
+      position: fixed;
+
+      top: 22px;
+      left: 22px;
+
+      z-index: 20;
+
+      font-size: .72rem;
+
+      letter-spacing: .15em;
+
+      opacity: .55;
+    }
+
+    /* =========================
+       MEMORY CARDS
+    ========================= */
+
+    .memory-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 12px;
+
+      margin-top: 24px;
+    }
+
+    .memory {
+      min-height: 130px;
+
+      padding: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.07);
+
+      border:
+        1px solid rgba(255,255,255,.1);
+
+      transition:
+        transform .3s ease,
+        background .3s ease;
+    }
+
+    .memory:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,.12);
+    }
+
+    .memory-text {
+      display: none;
+    }
+
+    .memory.open .memory-label {
+      display: none;
+    }
+
+    .memory.open .memory-text {
+      display: block;
+    }
+
+    /* =========================
+       LETTER
+    ========================= */
+
+    .letter {
+      max-height: 55vh;
+
+      overflow-y: auto;
+
+      text-align: left;
+
+      padding:
+        8px 18px 8px 5px;
+
+      margin-top: 20px;
+
+      scrollbar-width: thin;
+
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .letter p {
+      margin-bottom: 20px;
+    }
+
+    /* =========================
+       SECRET
+    ========================= */
+
+    .secret {
+      display: none;
+
+      margin-top: 24px;
+
+      padding: 22px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.08);
+
+      border:
+        1px solid rgba(255,255,255,.12);
+
+      animation:
+        reveal .7s ease;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       PARTICLES
+    ========================= */
 
     .particle {
       position: fixed;
+
       width: 5px;
       height: 5px;
+
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
+
+      background: rgba(255,255,255,.75);
+
       pointer-events: none;
-      z-index: 5;
-      animation: floatUp 5s linear forwards;
+
+      z-index: 10;
+
+      animation:
+        floatUp 3s ease-out forwards;
     }
 
     @keyframes floatUp {
       0% {
-        transform: translateY(0) scale(1);
         opacity: 0;
+        transform: translateY(20px) scale(.5);
       }
 
       20% {
@@ -166,393 +496,329 @@
       }
 
       100% {
-        transform: translateY(-160px) scale(0.2);
         opacity: 0;
+        transform: translateY(-180px) scale(1.3);
       }
     }
 
-    /* ---------- SCENES ---------- */
+    /* =========================
+       DAWN
+    ========================= */
 
-    .scene {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
+    body.dawn {
+      background:
+        linear-gradient(
+          180deg,
+          #272448 0%,
+          #75536d 48%,
+          #d08b78 100%
+        );
+    }
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    body.dawn .stars {
+      opacity: .15;
+    }
 
-      padding: 24px;
+    body.dawn .moon {
+      opacity: .25;
+      transform: translateY(-30px);
+    }
 
+    body.sunrise {
+      background:
+        linear-gradient(
+          180deg,
+          #f09a91 0%,
+          #f6bd9e 45%,
+          #f8dcb0 100%
+        );
+    }
+
+    body.sunrise .stars {
       opacity: 0;
-      visibility: hidden;
-      transform: scale(0.98);
-
-      transition:
-        opacity 0.6s ease,
-        transform 0.6s ease;
     }
 
-    .scene.active {
+    body.sunrise .moon {
+      opacity: 0;
+    }
+
+    body.sunrise .sun {
+      bottom: 12%;
       opacity: 1;
-      visibility: visible;
-      transform: scale(1);
     }
 
-    .content {
-      width: min(850px, 100%);
-      max-height: 92vh;
+    /* =========================
+       FINAL PAGE
+    ========================= */
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .final-scene {
+      padding: 12px;
 
-      text-align: center;
+      overflow: hidden;
     }
 
-    .eyebrow {
-      margin-bottom: 18px;
+    .final-glow {
+      position: absolute;
 
-      color: var(--accent);
+      width: 420px;
+      height: 420px;
 
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin-bottom: 24px;
-
-      font-size: clamp(44px, 8vw, 82px);
-      line-height: 0.98;
-    }
-
-    h2 {
-      margin-bottom: 22px;
-
-      font-size: clamp(32px, 6vw, 56px);
-      line-height: 1.08;
-    }
-
-    p {
-      max-width: 720px;
-      margin-bottom: 20px;
-
-      color: var(--muted);
-
-      font-size: clamp(16px, 2.4vw, 21px);
-      line-height: 1.75;
-    }
-
-    /* ---------- BUTTONS ---------- */
-
-    button {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-
-      padding: 13px 23px;
-
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.08);
-
-      font-family: inherit;
-      font-size: 16px;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease;
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--accent);
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    .primary {
-      border-color: var(--accent);
-      background: rgba(201, 167, 255, 0.17);
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-
-      margin-bottom: 20px;
-    }
-
-    .hint {
-      margin-top: 14px;
-
-      color: rgba(255, 255, 255, 0.4);
-
-      font-size: 13px;
-    }
-
-    /* ---------- TOP CONTROLS ---------- */
-
-    #soundButton {
-      position: fixed;
-      top: 18px;
-      right: 18px;
-
-      z-index: 20;
-
-      width: 44px;
-      height: 44px;
-
-      padding: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #progress {
-      position: fixed;
-      left: 18px;
-      bottom: 18px;
-
-      z-index: 20;
-
-      color: rgba(255, 255, 255, 0.45);
-
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    /* ---------- MEMORIES ---------- */
-
-    .memories {
-      width: min(850px, 100%);
-
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-
-      gap: 15px;
-
-      margin: 10px 0 20px;
-    }
-
-    .memory {
-      min-height: 180px;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      padding: 20px;
-
-      border: 1px solid var(--border);
-      border-radius: 24px;
-
-      background: var(--glass);
-
-      cursor: pointer;
-
-      transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        border-color 0.25s ease;
-    }
-
-    .memory:hover {
-      transform: translateY(-6px);
-      background: rgba(255, 255, 255, 0.13);
-    }
-
-    .memory.open {
-      border-color: var(--accent);
-      background: rgba(255, 255, 255, 0.13);
-    }
-
-    .memory-icon {
-      margin-bottom: 12px;
-
-      color: var(--accent);
-
-      font-size: 30px;
-    }
-
-    .memory p {
-      margin: 0;
-
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    /* ---------- HEART ---------- */
-
-    .heart {
-      margin-bottom: 15px;
-
-      color: #f7d9ff;
-
-      font-size: 65px;
-
-      animation: heartbeat 2s ease-in-out infinite;
-    }
-
-    @keyframes heartbeat {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.1);
-      }
-    }
-
-    /* ---------- LETTER ---------- */
-
-    .letter {
-      width: min(820px, 100%);
-
-      max-height: 89vh;
-
-      padding: 34px clamp(22px, 5vw, 55px);
-
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 30px;
-
-      background: rgba(255, 255, 255, 0.065);
-
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
-
-      backdrop-filter: blur(18px);
-
-      overflow-y: auto;
-      scrollbar-width: thin;
-    }
-
-    .letter p {
-      max-width: 700px;
-
-      margin-left: auto;
-      margin-right: auto;
-
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .letter .signature {
-      margin-top: 28px;
-
-      color: var(--accent);
-
-      font-style: italic;
-    }
-
-    /* ---------- FINAL PAGE ---------- */
-
-    .final-card {
-      width: min(850px, 100%);
-
-      padding: clamp(25px, 5vw, 58px);
-
-      border: 1px solid rgba(255, 255, 255, 0.17);
-      border-radius: 38px;
+      border-radius: 50%;
 
       background:
         radial-gradient(
-          circle at 50% 0%,
-          rgba(255, 226, 185, 0.14),
-          transparent 55%
-        ),
-        rgba(255, 255, 255, 0.07);
+          circle,
+          rgba(255,190,200,.14),
+          transparent 70%
+        );
+
+      pointer-events: none;
+    }
+
+    .final-card {
+      width: min(760px, 96vw);
+
+      height: min(88vh, 760px);
+
+      display: flex;
+      flex-direction: column;
+
+      padding:
+        clamp(20px, 4vw, 42px);
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.15),
+          rgba(255,255,255,.06)
+        );
+
+      border:
+        1px solid rgba(255,255,255,.15);
 
       box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.2),
-        inset 0 1px rgba(255, 255, 255, 0.08);
+        0 30px 100px rgba(0,0,0,.28);
 
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      position: relative;
+
+      z-index: 5;
+
+      overflow: hidden;
     }
 
-    .final-card .heart {
-      font-size: 55px;
+    .final-top {
+      flex: 0 0 auto;
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 8px;
     }
 
-    .final-card p {
-      max-width: 710px;
+    .final-small {
+      font-size: .7rem;
 
-      font-size: clamp(16px, 2.2vw, 20px);
-      line-height: 1.7;
+      letter-spacing: .25em;
+
+      opacity: .6;
     }
 
-    .highlight {
-      color: #fff0c7 !important;
+    .final-heart {
+      font-size: 1.8rem;
 
-      font-size: clamp(19px, 2.8vw, 25px) !important;
+      opacity: .75;
     }
 
-    .last-line {
-      margin-top: 25px;
+    .final-card h1 {
+      flex: 0 0 auto;
 
-      color: #ffffff !important;
+      margin:
+        0 0 16px;
 
-      font-size: clamp(20px, 3vw, 27px) !important;
-      font-style: italic;
+      text-align: center;
 
-      line-height: 1.55 !important;
+      font-size:
+        clamp(2rem, 6vw, 3.8rem);
+
+      line-height: 1;
     }
 
-    /* ---------- MOBILE / TABLET ---------- */
+    /*
+      IMPORTANT:
+      This is the only scrollable area
+      on the final page.
+    */
+
+    .final-message {
+      flex: 1 1 auto;
+
+      min-height: 0;
+
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      padding:
+        4px 14px 10px 4px;
+
+      margin-bottom: 14px;
+
+      text-align: center;
+
+      scrollbar-width: thin;
+
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .final-message p {
+      max-width: 650px;
+
+      margin:
+        0 auto 18px;
+
+      font-size:
+        clamp(.95rem, 2.2vw, 1.08rem);
+
+      line-height: 1.75;
+
+      opacity: .92;
+    }
+
+    .final-message .final-ending {
+      margin-top: 24px;
+    }
+
+    .final-message .final-last {
+      margin-top: 28px;
+
+      padding-bottom: 12px;
+
+      font-size:
+        clamp(1rem, 2.4vw, 1.18rem);
+    }
+
+    .final-actions {
+      flex: 0 0 auto;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      gap: 10px;
+
+      padding-top: 8px;
+    }
+
+    .final-actions button {
+      flex-shrink: 0;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 700px) {
+
       .scene {
-        padding: 18px;
+        padding: 12px;
       }
 
-      .content {
-        max-height: 94vh;
+      .card {
+        width: 96vw;
+        max-height: 91vh;
+
+        padding: 22px 17px;
       }
 
-      .memories {
+      .memory-grid {
         grid-template-columns: 1fr;
 
-        max-height: 58vh;
+        max-height: 55vh;
 
         overflow-y: auto;
+
+        padding-right: 4px;
       }
 
       .memory {
-        min-height: 125px;
+        min-height: 90px;
       }
 
-      .letter {
-        max-height: 91vh;
-
-        padding: 25px 20px;
-      }
-
-      .letter p {
-        font-size: 15px;
-        line-height: 1.6;
-        margin-bottom: 14px;
+      .final-scene {
+        padding: 10px;
       }
 
       .final-card {
-        max-height: 92vh;
+        width: 96vw;
 
-        padding: 25px 20px;
+        height: 92vh;
+
+        padding: 20px 16px;
+
+        border-radius: 24px;
       }
 
-      .final-card p {
-        font-size: 15px;
-        line-height: 1.6;
+      .final-card h1 {
+        margin-bottom: 12px;
+      }
+
+      .final-message {
+        padding-right: 10px;
+      }
+
+      .final-message p {
+        line-height: 1.65;
+
+        margin-bottom: 16px;
+      }
+
+      .final-actions {
+        flex-direction: column;
+
+        width: 100%;
+      }
+
+      .final-actions button {
+        width: 100%;
+      }
+    }
+
+    @media (max-height: 650px) {
+
+      .card {
+        padding: 18px;
+      }
+
+      .final-card {
+        height: 94vh;
+
+        padding:
+          15px 14px;
+      }
+
+      .final-card h1 {
+        font-size: 2rem;
+
+        margin-bottom: 8px;
+      }
+
+      .final-message p {
+        font-size: .9rem;
+
+        line-height: 1.55;
+
         margin-bottom: 13px;
+      }
+
+      .final-actions {
+        padding-top: 4px;
       }
     }
   </style>
@@ -560,7 +826,9 @@
 
 <body>
 
-  <!-- BACKGROUND -->
+  <!-- =========================
+       BACKGROUND
+  ========================= -->
 
   <div class="sky">
     <div class="stars"></div>
@@ -568,7 +836,9 @@
     <div class="sun"></div>
   </div>
 
-  <!-- MUSIC -->
+  <!-- =========================
+       AUDIO
+  ========================= -->
 
   <audio id="bgMusic" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
@@ -582,80 +852,102 @@
     01 / 14
   </div>
 
-
-  <!-- PAGE 1 -->
+  <!-- =========================
+       SCENE 1
+  ========================= -->
 
   <section class="scene active" id="scene1">
-    <div class="content">
 
-      <div class="eyebrow">
-        A quiet place for you
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        A LITTLE PLACE TO STAY
+      </span>
 
       <h1>
-        A Little Place<br>
-        to Stay
+        You made it here.
       </h1>
 
       <p>
-        You don't have to know where you're going yet.
-        You don't have to have everything figured out.
-        For a little while, you can simply be here.
+        Maybe you don't know why you clicked this.
+        Maybe you just needed somewhere quiet for a while.
       </p>
 
-      <button
-        class="primary"
-        onclick="beginExperience()">
-        Enter
-      </button>
+      <p style="margin-top: 15px;">
+        Whatever brought you here,
+        you don't have to explain it.
+      </p>
 
-      <div class="hint">
-        Your music will begin when you enter
+      <div class="buttons">
+        <button class="primary" onclick="startExperience()">
+          Come in
+        </button>
       </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 2 -->
+  <!-- =========================
+       SCENE 2
+  ========================= -->
 
   <section class="scene" id="scene2">
-    <div class="content">
 
-      <div class="eyebrow">
-        Before anything else
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        TAKE A BREATH
+      </span>
 
       <h2>
-        Breathe.
+        You don't have to rush.
       </h2>
 
       <p>
-        Slowly.<br>
-        You made it here.
-        That's enough for this moment.
+        For the next few minutes,
+        there is nowhere you need to be.
       </p>
 
-      <button onclick="nextPage()">
-        I'm here
-      </button>
+      <p style="margin-top: 15px;">
+        Let your shoulders fall.
+        Unclench your jaw.
+        Take one slow breath.
+      </p>
 
-    </div>
-  </section>
+      <p style="margin-top: 15px;">
+        You are allowed to simply exist here.
+      </p>
 
-
-  <!-- PAGE 3 -->
-
-  <section class="scene" id="scene3">
-    <div class="content">
-
-      <div class="eyebrow">
-        Choose what you need
+      <div class="buttons">
+        <button class="primary" onclick="nextPage()">
+          I'm ready
+        </button>
       </div>
 
+    </div>
+
+  </section>
+
+  <!-- =========================
+       SCENE 3
+  ========================= -->
+
+  <section class="scene" id="scene3">
+
+    <div class="card">
+
+      <span class="small-label">
+        WHAT DO YOU NEED?
+      </span>
+
       <h2>
-        What brought you here?
+        You can choose.
       </h2>
+
+      <p>
+        There is no wrong answer.
+      </p>
 
       <div class="buttons">
 
@@ -673,494 +965,548 @@
 
       </div>
 
-      <p id="needMessage"></p>
+      <p
+        id="needMessage"
+        style="margin-top: 24px; min-height: 70px;"
+      ></p>
 
-      <button
-        id="needContinue"
-        class="primary"
-        style="display: none"
-        onclick="nextPage()">
-        Continue
-      </button>
+      <div class="buttons">
+
+        <button
+          id="needContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 4 -->
+  <!-- =========================
+       SCENE 4
+  ========================= -->
 
   <section class="scene" id="scene4">
-    <div class="content">
 
-      <div class="eyebrow">
-        A few things worth remembering
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        LITTLE MEMORIES
+      </span>
 
       <h2>
-        Open a memory.
+        Open one.
       </h2>
 
-      <div class="memories">
+      <p>
+        Sometimes the smallest things
+        are the ones worth remembering.
+      </p>
 
-        <div
+      <div class="memory-grid">
+
+        <button
           class="memory"
-          onclick="openMemory(this)">
+          onclick="openMemory(this)"
+        >
+          <span class="memory-label">
+            A quiet morning
+          </span>
 
-          <div class="memory-icon">
-            ☾
-          </div>
+          <span class="memory-text">
+            You survived another morning.
+            That matters more than you think.
+          </span>
+        </button>
 
-          <p>
-            There were nights you thought you couldn't make it
-            through, and somehow morning still found you.
-          </p>
-
-        </div>
-
-        <div
+        <button
           class="memory"
-          onclick="openMemory(this)">
+          onclick="openMemory(this)"
+        >
+          <span class="memory-label">
+            Someone's smile
+          </span>
 
-          <div class="memory-icon">
-            ♡
-          </div>
+          <span class="memory-text">
+            Somewhere, someone remembers
+            a version of you that made them smile.
+          </span>
+        </button>
 
-          <p>
-            There are people, places, songs, and tiny moments
-            that prove your life has held warmth before.
-          </p>
-
-        </div>
-
-        <div
+        <button
           class="memory"
-          onclick="openMemory(this)">
+          onclick="openMemory(this)"
+        >
+          <span class="memory-label">
+            A tiny victory
+          </span>
 
-          <div class="memory-icon">
-            ✦
-          </div>
-
-          <p>
-            You have already survived versions of yourself
-            that you once thought would never make it.
-          </p>
-
-        </div>
+          <span class="memory-text">
+            You don't have to call it a victory
+            for it to count.
+          </span>
+        </button>
 
       </div>
 
-      <button
-        id="memoryContinue"
-        style="display: none"
-        onclick="nextPage()">
-        Keep going
-      </button>
+      <div class="buttons">
+
+        <button
+          id="memoryContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 5 -->
+  <!-- =========================
+       SCENE 5
+  ========================= -->
 
   <section class="scene" id="scene5">
-    <div class="content">
 
-      <div class="heart">
-        ♡
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        PERMISSION
+      </span>
 
       <h2>
-        You don't have to earn rest.
+        You are allowed to rest.
       </h2>
 
       <p>
-        You don't need to accomplish something first.
-        You don't need to become better before you're allowed
-        to be tired.
+        You don't have to earn rest
+        by exhausting yourself first.
       </p>
 
-      <p>
-        You are allowed to stop.
-        You are allowed to breathe.
-        You are allowed to exist without proving anything.
+      <p style="margin-top: 16px;">
+        You don't need to finish everything.
+        You don't need to prove anything.
       </p>
 
-      <button onclick="nextPage()">
-        I understand
-      </button>
-
-    </div>
-  </section>
-
-
-  <!-- PAGE 6 -->
-
-  <section class="scene" id="scene6">
-    <div class="content">
-
-      <div class="eyebrow">
-        No one is judging you here
-      </div>
-
-      <h2>
-        If nobody judged you...
-      </h2>
-
-      <p>
-        What would you finally admit that you need?
+      <p style="margin-top: 16px;">
+        Sometimes resting is the bravest thing
+        you can do.
       </p>
 
       <div class="buttons">
+        <button class="primary" onclick="nextPage()">
+          I understand
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       SCENE 6
+  ========================= -->
+
+  <section class="scene" id="scene6">
+
+    <div class="card">
+
+      <span class="small-label">
+        BE HONEST
+      </span>
+
+      <h2>
+        If nobody judged you,
+        what would you ask for?
+      </h2>
+
+      <div class="buttons">
+
+        <button onclick="showChoice('a break')">
+          A break
+        </button>
+
+        <button onclick="showChoice('a hug')">
+          A hug
+        </button>
+
+        <button onclick="showChoice('another chance')">
+          Another chance
+        </button>
 
         <button onclick="showChoice('someone to stay')">
           Someone to stay
         </button>
 
-        <button onclick="showChoice('permission to rest')">
-          Permission to rest
-        </button>
+      </div>
 
-        <button onclick="showChoice('a fresh start')">
-          A fresh start
-        </button>
+      <p
+        id="choiceResponse"
+        style="margin-top: 24px; min-height: 80px;"
+      ></p>
 
-        <button onclick="showChoice('to believe again')">
-          To believe again
+      <div class="buttons">
+
+        <button
+          id="choiceContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
         </button>
 
       </div>
 
-      <p id="choiceResponse"></p>
-
-      <button
-        id="choiceContinue"
-        style="display: none"
-        onclick="nextPage()">
-        Continue
-      </button>
-
     </div>
+
   </section>
 
-
-  <!-- PAGE 7 -->
+  <!-- =========================
+       SCENE 7
+  ========================= -->
 
   <section class="scene" id="scene7">
-    <div class="content">
+
+    <div class="card">
+
+      <span class="small-label">
+        A LETTER FOR YOU
+      </span>
+
+      <h2>
+        Read this slowly.
+      </h2>
 
       <div class="letter">
 
-        <div class="eyebrow">
-          A letter for you
-        </div>
-
-        <h2>
-          Read this slowly.
-        </h2>
-
         <p>
-          If nobody has told you lately, let me tell you now:
-          I'm glad you're here.
+          Hey.
         </p>
 
         <p>
-          Not because you have everything together.
-          Not because you've figured life out.
-          Not because you've been strong every day.
-          I'm glad you're here simply because you are.
+          I don't know what kind of day you had before you found this
+          little place. Maybe it was ordinary. Maybe it was exhausting.
+          Maybe you smiled at people while quietly wishing someone would
+          notice that you weren't really okay.
         </p>
 
         <p>
-          I know there are days when you look around and wonder
-          why everyone else seems to know where they're going.
-          You watch people move forward while you feel like
-          you're standing in the same place, wondering if
-          something is wrong with you.
+          Whatever it was, I want you to know something.
+          You made it through it.
         </p>
 
         <p>
-          There isn't.
+          I know that sometimes doesn't feel like an accomplishment.
+          You might look at yourself and think you should have done more,
+          been stronger, moved faster, figured things out sooner.
+          But surviving a difficult day is still something.
         </p>
 
         <p>
-          You are not late.
-          You are not a failure.
-          You are not running out of time.
+          You are human.
+          You are allowed to become tired.
+          You are allowed to become confused.
+          You are allowed to have moments where you don't know what comes next.
         </p>
 
         <p>
-          Sometimes life becomes quiet before it becomes
-          beautiful again.
+          Please don't punish yourself for not being the person you are
+          still learning how to become.
         </p>
 
         <p>
-          Sometimes you have to lose the version of yourself
-          who thought she needed to have everything figured out
-          before you can meet the version of yourself who finally
-          learns how to live.
+          There are parts of your future that you haven't met yet.
+          There are people who haven't entered your life.
+          There are places you haven't seen.
+          There are mornings you haven't woken up to.
+          There are songs you haven't heard at the right moment yet.
         </p>
 
         <p>
-          And I know you've probably been harder on yourself
-          than anyone else ever could be.
+          There are versions of yourself waiting for you too.
         </p>
 
         <p>
-          You've replayed mistakes.
-          You've remembered embarrassing moments.
-          You've wondered what would have happened if you had
-          chosen differently.
-          You've looked at old versions of yourself and wished
-          you could go back and save them.
+          A calmer you.
+          A stronger you.
+          A happier you.
+          A you who finally understands why all those difficult nights
+          didn't get the final word.
         </p>
 
         <p>
-          But listen to me:
-          you were doing the best you could with the heart,
-          knowledge, and strength you had at the time.
+          You don't need to become that person tonight.
         </p>
 
         <p>
-          You don't have to punish that version of yourself
-          anymore.
+          Just keep walking toward them.
+          Even if today that means taking one tiny step.
         </p>
 
         <p>
-          She was trying to get you here.
+          And if you need to stop for a while,
+          stop.
         </p>
 
         <p>
-          And look at you.
-          You're still here.
+          Rest.
+          Cry.
+          Breathe.
+          Be quiet.
+          Start again when you're ready.
         </p>
 
         <p>
-          Maybe your life doesn't look the way you imagined.
-          Maybe some dreams changed.
-          Maybe some people left.
-          Maybe there are parts of yourself you haven't found
-          again yet.
+          Your pace does not make your journey less meaningful.
         </p>
 
         <p>
-          But your story is not finished just because this chapter
-          hurts.
+          I hope someday you look back at this version of yourself
+          with tenderness instead of anger.
         </p>
 
         <p>
-          There are still mornings you haven't watched arrive.
-          There are still places you've never stood.
-          There are still friendships you haven't made.
-          There are still songs you haven't heard at exactly
-          the right moment.
+          I hope you realize how much strength it took
+          to keep going when nobody could see the effort.
         </p>
 
         <p>
-          There are still versions of you that haven't existed yet.
+          And I hope you never forget that you deserve kindness
+          even when you haven't accomplished anything.
         </p>
 
         <p>
-          The calmer you.
-          The stronger you.
-          The happier you.
-          The you who finally looks in the mirror and realizes
-          that she made it through something she once thought
-          would destroy her.
+          You don't have to perform your worth.
         </p>
 
         <p>
-          You haven't met her yet.
+          You already have it.
         </p>
 
         <p>
-          So please...
-          don't leave the story before you meet her.
+          So for tonight,
+          let yourself breathe.
         </p>
 
         <p>
-          You don't need to fix everything tonight.
-          You don't need a five-year plan.
-          You don't need to know exactly who you're becoming.
+          Tomorrow can wait.
         </p>
 
         <p>
-          Just take the next step.
+          You are still becoming.
+          And that is a beautiful thing.
         </p>
 
-        <p>
-          Then another.
-        </p>
+      </div>
 
-        <p>
-          And when you can't take a step,
-          rest.
-        </p>
+      <div class="buttons">
 
-        <p>
-          Rest until you can breathe again.
-          Then begin again.
-        </p>
-
-        <p>
-          One day, you may look back at this version of yourself
-          with tears in your eyes.
-        </p>
-
-        <p>
-          Not because you failed.
-        </p>
-
-        <p>
-          But because you'll realize how incredibly brave you were
-          for continuing when you couldn't see what was waiting
-          on the other side.
-        </p>
-
-        <p class="signature">
-          You don't have to become someone else.<br>
-          You just have to keep becoming you.
-        </p>
-
-        <button onclick="nextPage()">
-          Keep going
+        <button class="primary" onclick="nextPage()">
+          I needed that
         </button>
 
       </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 8 -->
+  <!-- =========================
+       SCENE 8
+  ========================= -->
 
   <section class="scene" id="scene8">
-    <div class="content">
 
-      <div class="eyebrow">
-        Just for tonight
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        JUST STAY A LITTLE LONGER
+      </span>
 
       <h2>
-        Would you stay<br>
-        a little longer?
+        You don't have to leave yet.
       </h2>
 
       <p>
-        Not forever.
-        Not for everyone.
-        Just long enough to give tomorrow a chance.
+        You can stay here for another moment.
+        No expectations.
+        No pressure.
+      </p>
+
+      <div class="buttons">
+
+        <button onclick="stayResponse(true)">
+          I'll stay
+        </button>
+
+        <button onclick="stayResponse(false)">
+          I think I'm ready
+        </button>
+
+      </div>
+
+      <p
+        id="stayMessage"
+        style="margin-top: 24px; min-height: 80px;"
+      ></p>
+
+      <div class="buttons">
+
+        <button
+          id="stayContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       SCENE 9
+  ========================= -->
+
+  <section class="scene" id="scene9">
+
+    <div class="card">
+
+      <span class="small-label">
+        A SECRET
+      </span>
+
+      <h2>
+        There is something hidden here.
+      </h2>
+
+      <p>
+        Maybe you found it.
+        Maybe you didn't.
+        Either way, try opening it.
       </p>
 
       <div class="buttons">
 
         <button
           class="primary"
-          onclick="stayResponse(true)">
-          Yes
-        </button>
-
-        <button onclick="stayResponse(false)">
-          I don't know
+          onclick="revealSecret()"
+        >
+          Open the secret
         </button>
 
       </div>
 
-      <p id="stayMessage"></p>
-
-      <button
-        id="stayContinue"
-        style="display: none"
-        onclick="nextPage()">
-        Next
-      </button>
-
-    </div>
-  </section>
-
-
-  <!-- PAGE 9 -->
-
-  <section class="scene" id="scene9">
-    <div class="content">
-
-      <div class="eyebrow">
-        You found something hidden
-      </div>
-
-      <h2>
-        One little secret.
-      </h2>
-
-      <p>
-        Somewhere in the middle of all this,
-        there is a sentence I want you to keep.
-      </p>
-
-      <button
-        class="primary"
-        onclick="revealSecret()">
-        Reveal it
-      </button>
-
-      <p
+      <div
+        class="secret"
         id="secret"
-        style="display: none">
-        You are allowed to become someone your past self
-        would have been proud to meet.
-      </p>
+      >
+        <p>
+          The secret is that you were never supposed
+          to have everything figured out.
+        </p>
 
-      <button
-        id="secretContinue"
-        style="display: none"
-        onclick="nextPage()">
-        Keep it
-      </button>
+        <p style="margin-top: 12px;">
+          You're allowed to learn as you go.
+          You're allowed to change.
+          You're allowed to begin again.
+        </p>
+
+        <p style="margin-top: 12px;">
+          And you are allowed to become someone
+          you haven't even imagined yet.
+        </p>
+      </div>
+
+      <div class="buttons">
+
+        <button
+          id="secretContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 10 -->
+  <!-- =========================
+       SCENE 10
+  ========================= -->
 
   <section class="scene" id="scene10">
-    <div class="content">
 
-      <div class="eyebrow">
-        A message from the future
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        YOUR FUTURE SELF
+      </span>
 
       <h2>
-        Imagine meeting yourself<br>
+        Imagine meeting yourself
         one year from now.
       </h2>
 
       <p>
-        She looks back at this exact moment.
-        At the night you almost gave up.
-        At the day you almost stopped trying.
+        Maybe that version of you is smiling.
       </p>
 
-      <p>
-        And she whispers:
-        "Thank you for staying."
+      <p style="margin-top: 15px;">
+        Maybe they finally got the thing
+        they were working so hard for.
       </p>
 
-      <button onclick="nextPage()">
-        Meet her
-      </button>
+      <p style="margin-top: 15px;">
+        Maybe they didn't.
+        Maybe something even better happened instead.
+      </p>
+
+      <p style="margin-top: 15px;">
+        Either way, they would probably be proud
+        that you didn't give up on them.
+      </p>
+
+      <div class="buttons">
+
+        <button class="primary" onclick="nextPage()">
+          I'll meet them someday
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 11 -->
+  <!-- =========================
+       SCENE 11
+  ========================= -->
 
   <section class="scene" id="scene11">
-    <div class="content">
 
-      <div class="eyebrow">
-        One tiny promise
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        ONE SMALL PROMISE
+      </span>
 
       <h2>
         What will you give yourself?
@@ -1169,371 +1515,506 @@
       <div class="buttons">
 
         <button onclick="makePromise('rest')">
-          I will rest
+          Rest
         </button>
 
         <button onclick="makePromise('try')">
-          I will try again
+          Try again
         </button>
 
         <button onclick="makePromise('kind')">
-          I will be kinder to myself
+          Be kinder to myself
         </button>
 
       </div>
 
-      <p id="promiseMessage"></p>
+      <p
+        id="promiseMessage"
+        style="margin-top: 24px; min-height: 75px;"
+      ></p>
 
-      <button
-        id="promiseContinue"
-        style="display: none"
-        onclick="nextPage()">
-        I promise
-      </button>
+      <div class="buttons">
+
+        <button
+          id="promiseContinue"
+          class="primary"
+          style="display: none;"
+          onclick="nextPage()"
+        >
+          Continue
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 12 -->
+  <!-- =========================
+       SCENE 12
+  ========================= -->
 
   <section class="scene" id="scene12">
-    <div class="content">
 
-      <div class="eyebrow">
-        Almost morning
-      </div>
+    <div class="card">
+
+      <span class="small-label">
+        ALMOST MORNING
+      </span>
 
       <h2>
-        The sky is changing.
+        Watch it change.
       </h2>
 
       <p>
-        Nothing dramatic happened.
-        The world didn't suddenly become perfect.
+        The night doesn't stay forever.
       </p>
 
-      <p>
-        But you stayed.
+      <p style="margin-top: 15px;">
+        Neither will this moment.
       </p>
 
-      <button
-        class="primary"
-        onclick="watchMorning()">
-        Watch it change
-      </button>
+      <div class="buttons">
+
+        <button
+          class="primary"
+          onclick="watchMorning()"
+        >
+          Watch the morning
+        </button>
+
+      </div>
 
     </div>
+
   </section>
 
-
-  <!-- PAGE 13 -->
+  <!-- =========================
+       SCENE 13
+  ========================= -->
 
   <section class="scene" id="scene13">
-    <div class="content">
 
-      <div class="eyebrow">
-        Good morning
+    <div class="card">
+
+      <span class="small-label">
+        MORNING
+      </span>
+
+      <h1>
+        You stayed.
+      </h1>
+
+      <p>
+        Look at that.
+      </p>
+
+      <p style="margin-top: 15px;">
+        The world is still here.
+        And so are you.
+      </p>
+
+      <p style="margin-top: 15px;">
+        Maybe tomorrow won't be perfect.
+        It doesn't have to be.
+      </p>
+
+      <p style="margin-top: 15px;">
+        It just has to be another chance.
+      </p>
+
+      <div class="buttons">
+
+        <button class="primary" onclick="nextPage()">
+          One last thing
+        </button>
+
       </div>
 
-      <h2>
-        You made it.
-      </h2>
-
-      <p>
-        Maybe today will be difficult.
-        Maybe it will be beautiful.
-        Maybe it will be completely ordinary.
-      </p>
-
-      <p>
-        Whatever it becomes,
-        you don't have to know everything right now.
-      </p>
-
-      <button onclick="nextPage()">
-        One more thing
-      </button>
-
     </div>
+
   </section>
 
+  <!-- =========================
+       SCENE 14 — FINAL
+  ========================= -->
 
-  <!-- PAGE 14 -->
+  <section class="scene final-scene" id="scene14">
 
-  <section class="scene" id="scene14">
-    <div class="content">
+    <div class="final-glow"></div>
 
-      <div class="final-card">
+    <div class="final-card">
 
-        <div class="heart">
+      <div class="final-top">
+
+        <span class="final-small">
+          ONE LAST THING
+        </span>
+
+        <span class="final-heart">
           ♡
-        </div>
+        </span>
 
-        <div class="eyebrow">
-          Before you leave
-        </div>
+      </div>
 
-        <h2>
-          Keep going.
-        </h2>
+      <h1>
+        Keep going.
+      </h1>
+
+      <div class="final-message">
 
         <p>
-          If you remember nothing else from this little place,
-          remember this:
-        </p>
-
-        <p class="highlight">
-          You are not finished.
+          I know there are days when continuing feels like
+          the hardest thing in the world.
         </p>
 
         <p>
-          There is still so much of you left to discover.
+          Days when you wake up already tired.
+          Days when your mind becomes louder than everything
+          around you.
+          Days when you wonder whether anything you're doing
+          actually matters.
         </p>
 
         <p>
-          There will be days when you feel like you're finally
-          becoming the person you've always wanted to be.
-          There will also be days when you feel like you've
-          somehow gone backwards.
+          But please remember this:
+          <strong>you are still here.</strong>
         </p>
 
         <p>
-          Both days belong to your story.
+          Maybe you don't have everything figured out yet.
+          Maybe you're nowhere near where you thought you would be.
+          Maybe there are dreams you haven't reached,
+          apologies you haven't received,
+          people you haven't met,
+          places you haven't seen,
+          and versions of yourself you haven't become yet.
         </p>
 
         <p>
-          You don't have to be perfect to move forward.
-          You don't have to be fearless.
-          You don't even have to feel ready.
+          That doesn't mean your story is behind.
+          It means your story is still being written.
         </p>
 
         <p>
-          Sometimes courage is simply waking up and deciding
-          to give life another chance.
+          There is still a morning you haven't seen.
+          There is still a version of you who will look back
+          at this moment and whisper,
+          <em>"I'm glad I stayed."</em>
         </p>
 
         <p>
-          So take your time.
-          Drink some water.
-          Get some sleep.
-          Look at the sky.
-          Listen to your favorite song.
-          Laugh at something stupid.
-          Let yourself have a good day when one comes.
+          So tonight, you don't have to fix your entire life.
+          You don't have to become stronger overnight.
+          You don't have to know exactly where you're going.
         </p>
 
         <p>
-          And when the difficult days return,
-          because sometimes they will,
-          remember that you've survived difficult days before.
+          Just take the next breath.
+          Then the next one.
+          And when tomorrow comes,
+          take one more step.
         </p>
 
         <p>
-          You don't need to remember how you survived.
-          You only need to remember that you did.
+          Slowly is still moving.
+          Resting is still moving.
+          Starting again is still moving.
         </p>
 
         <p>
-          Somewhere in the future,
-          there is a version of you who is grateful
-          that you didn't give up on becoming her.
+          And if nobody has told you lately:
+          <strong>
+            I'm proud of you for making it this far.
+          </strong>
         </p>
 
         <p>
-          She is living through mornings you haven't seen yet.
-          She is laughing about things you haven't experienced.
-          She is standing in places you don't know exist.
+          Thank you for staying.
+          Thank you for trying.
+          Thank you for becoming someone your future self
+          can someday be grateful for.
         </p>
 
-        <p>
-          And one day,
-          she will look back at you —
-          this exact version of you —
-          and realize how hard you tried.
+        <p class="final-ending">
+          Wherever life takes you from here,
+          I hope you find soft places to land,
+          people who make you feel safe,
+          reasons to laugh until your stomach hurts,
+          dreams that make you excited to wake up,
+          and enough light to remind you that even the darkest
+          nights eventually become morning.
         </p>
 
-        <p>
-          She will remember the nights you cried.
-          The moments you doubted yourself.
-          The times you thought you weren't enough.
-        </p>
-
-        <p>
-          And I think she will be incredibly proud.
-        </p>
-
-        <p class="highlight">
-          Not because you had an easy life.
+        <p class="final-last">
+          You don't have to have it all figured out.
           <br>
-          But because you kept choosing to live it.
-        </p>
-
-        <p>
-          So go gently.
-        </p>
-
-        <p>
-          You don't have to carry tomorrow tonight.
-        </p>
-
-        <p>
-          Let tomorrow come when it comes.
-        </p>
-
-        <p class="last-line">
-          For now, breathe.
+          You just have to stay.
           <br><br>
-          You're still here.
-          <br><br>
-          And that means there is still a story left to tell.
+
+          <strong>
+            Your story isn't over yet.
+          </strong>
         </p>
 
       </div>
 
+      <div class="final-actions">
+
+        <button
+          class="primary"
+          onclick="createParticles(40)"
+        >
+          ♡ I'll keep going
+        </button>
+
+        <button
+          class="ghost"
+          onclick="showPage(1)"
+        >
+          ↺ Start again
+        </button>
+
+      </div>
+
     </div>
+
   </section>
 
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
   <script>
+
     let currentPage = 1
+
     const totalPages = 14
 
     let musicStarted = false
     let soundOn = true
+
     let memoriesOpened = 0
 
-    const music = document.getElementById("bgMusic")
-    const soundButton = document.getElementById("soundButton")
-    const progress = document.getElementById("progress")
+    const music =
+      document.getElementById("bgMusic")
+
+    const soundButton =
+      document.getElementById("soundButton")
+
+    const progress =
+      document.getElementById("progress")
 
 
-    /* ---------- MUSIC ---------- */
+    /* =========================
+       MUSIC
+    ========================= */
 
     function startMusic() {
+
       music.volume = 0.32
 
       music.play()
         .then(() => {
+
           musicStarted = true
+
           soundOn = true
+
           soundButton.textContent = "♫"
+
         })
         .catch(() => {
+
           soundButton.textContent = "♫"
+
         })
+    }
+
+
+    function startExperience() {
+
+      startMusic()
+
+      nextPage()
+
     }
 
 
     function toggleSound() {
+
       if (!musicStarted) {
+
         startMusic()
+
         return
+
       }
 
       if (music.paused) {
-        music.play().catch(() => {})
+
+        music.play()
+          .catch(() => {})
+
         soundOn = true
+
         soundButton.textContent = "♫"
+
       } else {
+
         music.pause()
+
         soundOn = false
+
         soundButton.textContent = "×"
+
       }
+
     }
 
 
-    soundButton.addEventListener("click", toggleSound)
+    soundButton.addEventListener(
+      "click",
+      toggleSound
+    )
 
 
-    /* ---------- PAGE NAVIGATION ---------- */
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
 
     function showPage(pageNumber) {
-      document.querySelectorAll(".scene").forEach(scene => {
-        scene.classList.remove("active")
-      })
+
+      document
+        .querySelectorAll(".scene")
+        .forEach(scene => {
+
+          scene.classList.remove("active")
+
+        })
+
 
       const selectedScene =
-        document.getElementById(`scene${pageNumber}`)
+        document.getElementById(
+          `scene${pageNumber}`
+        )
+
 
       if (!selectedScene) {
         return
       }
 
+
       selectedScene.classList.add("active")
+
 
       progress.textContent =
         `${String(pageNumber).padStart(2, "0")} / ${totalPages}`
 
+
       updateTheme()
+
 
       if (pageNumber === 2) {
         createParticles(10)
       }
 
+
       if (pageNumber === 12) {
         createParticles(15)
       }
 
+
       if (pageNumber === 14) {
+
         createParticles(25)
+
       }
+
     }
 
 
     function nextPage() {
+
       if (currentPage >= totalPages) {
         return
       }
 
       currentPage++
+
       showPage(currentPage)
+
     }
 
 
     function previousPage() {
+
       if (currentPage <= 1) {
         return
       }
 
       currentPage--
+
       showPage(currentPage)
+
     }
 
 
-    function beginExperience() {
-      startMusic()
-      createParticles(15)
-      nextPage()
-    }
-
-
-    /* ---------- THEMES ---------- */
+    /* =========================
+       THEME
+    ========================= */
 
     function updateTheme() {
-      document.body.classList.remove("dawn")
-      document.body.classList.remove("sunrise")
 
-      if (currentPage >= 12 && currentPage < 14) {
-        document.body.classList.add("dawn")
+      document.body.classList.remove(
+        "dawn",
+        "sunrise"
+      )
+
+
+      if (currentPage === 12) {
+
+        document.body.classList.add(
+          "dawn"
+        )
+
       }
 
-      if (currentPage === 14) {
-        document.body.classList.add("sunrise")
+
+      if (
+        currentPage === 13 ||
+        currentPage === 14
+      ) {
+
+        document.body.classList.add(
+          "sunrise"
+        )
+
       }
+
     }
 
 
-    /* ---------- PAGE 3 ---------- */
+    /* =========================
+       PAGE 3
+    ========================= */
 
     function chooseNeed(type) {
+
       const message =
-        document.getElementById("needMessage")
+        document.getElementById(
+          "needMessage"
+        )
+
 
       const continueButton =
-        document.getElementById("needContinue")
+        document.getElementById(
+          "needContinue"
+        )
+
 
       const messages = {
+
         rest:
           "Then rest. You don't need permission from anyone else. Put down the things you cannot carry tonight.",
 
@@ -1542,90 +2023,147 @@
 
         hope:
           "Then borrow a little hope from this place. You don't have to believe in the whole future. Just believe tomorrow is possible."
+
       }
 
-      message.textContent = messages[type]
 
-      continueButton.style.display = "inline-block"
+      message.textContent =
+        messages[type]
+
+
+      continueButton.style.display =
+        "inline-block"
+
     }
 
 
-    /* ---------- PAGE 4 ---------- */
+    /* =========================
+       PAGE 4
+    ========================= */
 
     function openMemory(card) {
+
       if (!card.classList.contains("open")) {
+
         card.classList.add("open")
+
         memoriesOpened++
+
       }
 
+
       if (memoriesOpened >= 1) {
+
         document.getElementById(
           "memoryContinue"
-        ).style.display = "inline-block"
+        ).style.display =
+          "inline-block"
+
       }
+
     }
 
 
-    /* ---------- PAGE 6 ---------- */
+    /* =========================
+       PAGE 6
+    ========================= */
 
     function showChoice(choice) {
+
       const response =
-        document.getElementById("choiceResponse")
+        document.getElementById(
+          "choiceResponse"
+        )
+
 
       response.textContent =
         `Then let that be enough for tonight. You don't have to explain why you need ${choice}. Needing something doesn't make you weak.`
 
+
       document.getElementById(
         "choiceContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
+
     }
 
 
-    /* ---------- PAGE 8 ---------- */
+    /* =========================
+       PAGE 8
+    ========================= */
 
     function stayResponse(staying) {
+
       const message =
-        document.getElementById("stayMessage")
+        document.getElementById(
+          "stayMessage"
+        )
+
 
       if (staying) {
+
         message.textContent =
           "Then stay. You don't have to do anything else. Just let this little place hold you for another moment."
+
       } else {
+
         message.textContent =
           "That's okay. You don't have to know. Sometimes making it through the next few minutes is already enough."
+
       }
+
 
       document.getElementById(
         "stayContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
+
     }
 
 
-    /* ---------- PAGE 9 ---------- */
+    /* =========================
+       PAGE 9
+    ========================= */
 
     function revealSecret() {
+
       document.getElementById(
         "secret"
-      ).style.display = "block"
+      ).style.display =
+        "block"
+
 
       document.getElementById(
         "secretContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
+
 
       createParticles(20)
+
     }
 
 
-    /* ---------- PAGE 11 ---------- */
+    /* =========================
+       PAGE 11
+    ========================= */
 
     function makePromise(type) {
+
       const message =
-        document.getElementById("promiseMessage")
+        document.getElementById(
+          "promiseMessage"
+        )
+
 
       const continueButton =
-        document.getElementById("promiseContinue")
+        document.getElementById(
+          "promiseContinue"
+        )
+
 
       const messages = {
+
         rest:
           "Good. Rest is not quitting. Rest is how you give yourself enough strength to continue.",
 
@@ -1634,84 +2172,152 @@
 
         kind:
           "Keep that promise close. You deserve the same patience and kindness that you give to everyone else."
+
       }
 
-      message.textContent = messages[type]
 
-      continueButton.style.display = "inline-block"
+      message.textContent =
+        messages[type]
+
+
+      continueButton.style.display =
+        "inline-block"
+
     }
 
 
-    /* ---------- PAGE 12 ---------- */
+    /* =========================
+       PAGE 12
+    ========================= */
 
     function watchMorning() {
-      document.body.classList.remove("dawn")
-      document.body.classList.add("dawn")
+
+      document.body.classList.remove(
+        "dawn"
+      )
+
+      document.body.classList.add(
+        "dawn"
+      )
+
 
       createParticles(30)
 
+
       setTimeout(() => {
+
         nextPage()
+
       }, 1200)
+
     }
 
 
-    /* ---------- PARTICLES ---------- */
+    /* =========================
+       PARTICLES
+    ========================= */
 
-    function createParticles(amount) {
-      for (let i = 0; i < amount; i++) {
+    function createParticles(amount = 15) {
+
+      for (
+        let i = 0;
+        i < amount;
+        i++
+      ) {
+
         const particle =
-          document.createElement("div")
+          document.createElement(
+            "div"
+          )
 
-        particle.className = "particle"
+
+        particle.className =
+          "particle"
+
 
         particle.style.left =
-          `${Math.random() * 100}vw`
+          `${Math.random() * 100}%`
+
 
         particle.style.top =
-          `${50 + Math.random() * 50}vh`
+          `${50 + Math.random() * 45}%`
+
 
         particle.style.animationDelay =
-          `${Math.random() * 1.5}s`
+          `${Math.random() * .8}s`
 
-        document.body.appendChild(particle)
+
+        document.body.appendChild(
+          particle
+        )
+
 
         setTimeout(() => {
+
           particle.remove()
-        }, 6000)
+
+        }, 3200)
+
       }
+
     }
 
 
-    /* ---------- KEYBOARD ---------- */
+    /* =========================
+       KEYBOARD NAVIGATION
+    ========================= */
 
-    document.addEventListener("keydown", event => {
-      if (
-        event.key === "ArrowRight" ||
-        event.key === " "
-      ) {
-        event.preventDefault()
-        nextPage()
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "ArrowRight" ||
+          event.key === " "
+        ) {
+
+          /*
+            Don't accidentally change pages
+            while the user is scrolling the
+            final message with the keyboard.
+          */
+
+          if (
+            event.target.closest(
+              ".final-message"
+            )
+          ) {
+            return
+          }
+
+
+          event.preventDefault()
+
+          nextPage()
+
+        }
+
+
+        if (
+          event.key === "ArrowLeft"
+        ) {
+
+          event.preventDefault()
+
+          previousPage()
+
+        }
+
       }
-
-      if (event.key === "ArrowLeft") {
-        previousPage()
-      }
-    })
+    )
 
 
-    /* ---------- AUDIO ERROR ---------- */
+    /* =========================
+       START
+    ========================= */
 
-    music.addEventListener("error", () => {
-      console.warn(
-        "music.mp3 could not be loaded. Make sure music.mp3 is in the same folder as index.html."
-      )
-    })
+    showPage(1)
 
-
-    /* ---------- START ---------- */
-
-    showPage(currentPage)
   </script>
 
 </body>
