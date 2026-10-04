@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
   <meta name="theme-color" content="#101426">
+
   <meta
     name="description"
     content="A Little Place to Stay — an interactive place to breathe, rest, and remember that tomorrow is still possible."
@@ -12,6 +18,10 @@
   <title>A Little Place to Stay</title>
 
   <style>
+    /* =========================================================
+       RESET
+    ========================================================= */
+
     * {
       box-sizing: border-box;
     }
@@ -27,55 +37,119 @@
 
     body {
       color: #f7f3ee;
+
       background:
-        radial-gradient(circle at 50% 20%, rgba(112, 126, 180, .22), transparent 32%),
-        linear-gradient(180deg, #080b18 0%, #11152a 55%, #18172b 100%);
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(112, 126, 180, .22),
+          transparent 32%
+        ),
+        linear-gradient(
+          180deg,
+          #080b18 0%,
+          #11152a 55%,
+          #18172b 100%
+        );
+
       transition:
         background 1.8s ease,
         color 1.2s ease;
+
+      overflow: hidden;
     }
 
     body.dawn {
       background:
-        radial-gradient(circle at 50% 18%, rgba(218, 172, 132, .32), transparent 35%),
-        linear-gradient(180deg, #18172b 0%, #41354b 48%, #9b6f67 100%);
+        radial-gradient(
+          circle at 50% 18%,
+          rgba(218, 172, 132, .32),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #18172b 0%,
+          #41354b 48%,
+          #9b6f67 100%
+        );
     }
 
     body.sunrise {
       color: #332b30;
+
       background:
-        radial-gradient(circle at 50% 12%, rgba(255, 225, 164, .72), transparent 38%),
-        linear-gradient(180deg, #81718a 0%, #d0a28d 48%, #f1c79f 100%);
+        radial-gradient(
+          circle at 50% 12%,
+          rgba(255, 225, 164, .72),
+          transparent 38%
+        ),
+        linear-gradient(
+          180deg,
+          #81718a 0%,
+          #d0a28d 48%,
+          #f1c79f 100%
+        );
     }
 
     button {
       font: inherit;
     }
 
+    button:focus-visible {
+      outline: 2px solid rgba(255, 235, 205, .9);
+      outline-offset: 3px;
+    }
+
+
+    /* =========================================================
+       BACKGROUND
+    ========================================================= */
+
     .stars {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
       overflow: hidden;
+
       z-index: 0;
     }
 
     .stars::before,
     .stars::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
       background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1.5px);
-      background-size: 85px 85px, 130px 130px;
-      background-position: 10px 20px, 45px 70px;
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.8) 1px,
+          transparent 1.5px
+        ),
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.45) 1px,
+          transparent 1.5px
+        );
+
+      background-size:
+        85px 85px,
+        130px 130px;
+
+      background-position:
+        10px 20px,
+        45px 70px;
+
       opacity: .55;
-      animation: drift 18s linear infinite;
+
+      animation:
+        drift 18s linear infinite;
     }
 
     .stars::after {
       opacity: .25;
+
       animation-duration: 28s;
       animation-direction: reverse;
     }
@@ -92,16 +166,23 @@
 
     .moon {
       position: fixed;
+
       width: 115px;
       height: 115px;
+
       right: 9%;
       top: 9%;
+
       border-radius: 50%;
+
       background: #fff8dd;
+
       box-shadow:
         0 0 35px rgba(255, 248, 221, .28),
         0 0 90px rgba(255, 248, 221, .08);
+
       z-index: 0;
+
       transition:
         opacity 1.5s ease,
         transform 1.5s ease;
@@ -119,18 +200,28 @@
 
     .sun {
       position: fixed;
+
       width: 170px;
       height: 170px;
+
       left: 50%;
       bottom: -135px;
+
       transform: translateX(-50%);
+
       border-radius: 50%;
+
       background: #ffe3a3;
-      box-shadow: 0 0 100px rgba(255, 220, 155, .55);
+
+      box-shadow:
+        0 0 100px rgba(255, 220, 155, .55);
+
       opacity: 0;
+
       transition:
         bottom 2.2s ease,
         opacity 2.2s ease;
+
       z-index: 0;
     }
 
@@ -144,15 +235,24 @@
       opacity: 1;
     }
 
+
+    /* =========================================================
+       TOP BAR
+    ========================================================= */
+
     .topbar {
       position: fixed;
+
       top: 18px;
       left: 18px;
       right: 18px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       z-index: 20;
+
       pointer-events: none;
     }
 
@@ -163,25 +263,40 @@
 
     #progress {
       padding: 8px 13px;
+
       border: 1px solid rgba(255,255,255,.15);
+
       border-radius: 999px;
+
       background: rgba(0,0,0,.18);
+
       backdrop-filter: blur(10px);
+
       color: rgba(255,255,255,.78);
+
       font-size: .82rem;
+
       letter-spacing: .08em;
     }
 
     #soundButton {
       width: 42px;
       height: 42px;
+
       padding: 0;
+
       border: 1px solid rgba(255,255,255,.15);
+
       border-radius: 50%;
+
       background: rgba(0,0,0,.18);
+
       color: white;
+
       cursor: pointer;
+
       backdrop-filter: blur(10px);
+
       transition:
         transform .2s ease,
         background .2s ease;
@@ -189,22 +304,36 @@
 
     #soundButton:hover {
       transform: scale(1.06);
+
       background: rgba(255,255,255,.12);
     }
+
+
+    /* =========================================================
+       SCENES
+    ========================================================= */
 
     .scene {
       position: fixed;
       inset: 0;
+
       display: none;
+
       align-items: center;
       justify-content: center;
+
       padding: 70px 20px 25px;
+
       z-index: 5;
+
+      overflow: hidden;
     }
 
     .scene.active {
       display: flex;
-      animation: sceneIn .65s ease both;
+
+      animation:
+        sceneIn .65s ease both;
     }
 
     @keyframes sceneIn {
@@ -219,46 +348,66 @@
       }
     }
 
-    /*
-      IMPORTANT:
-      Every card is now a flex column.
-      This lets long content occupy the available
-      middle space while the bottom buttons stay visible.
-    */
+
+    /* =========================================================
+       MAIN CARD
+    ========================================================= */
 
     .card {
       width: min(720px, 100%);
+
       height: min(88vh, 760px);
+
       padding: clamp(25px, 5vw, 48px);
+
       border: 1px solid rgba(255,255,255,.12);
+
       border-radius: 30px;
+
       background: rgba(13, 16, 32, .62);
+
       box-shadow:
         0 25px 80px rgba(0,0,0,.3),
         inset 0 1px 0 rgba(255,255,255,.06);
+
       backdrop-filter: blur(18px);
+
       text-align: center;
 
       display: flex;
       flex-direction: column;
 
       overflow: hidden;
+
+      min-height: 0;
     }
 
     body.sunrise .card {
       background: rgba(255,248,240,.42);
+
       border-color: rgba(70,45,45,.12);
+
       box-shadow:
         0 25px 80px rgba(70,45,45,.15),
         inset 0 1px 0 rgba(255,255,255,.4);
     }
 
+
+    /* =========================================================
+       TYPOGRAPHY
+    ========================================================= */
+
     .eyebrow {
       flex-shrink: 0;
+
       margin-bottom: 13px;
+
       color: rgba(255,255,255,.56);
+
       font-size: .78rem;
+
       letter-spacing: .2em;
+
       text-transform: uppercase;
     }
 
@@ -269,8 +418,11 @@
     h1,
     h2 {
       flex-shrink: 0;
+
       margin: 0 0 18px;
+
       line-height: 1.12;
+
       font-weight: 400;
     }
 
@@ -284,10 +436,15 @@
 
     p {
       flex-shrink: 0;
+
       margin: 0 auto 17px;
+
       max-width: 600px;
+
       color: rgba(247,243,238,.78);
+
       font-size: clamp(1rem, 2.5vw, 1.14rem);
+
       line-height: 1.85;
     }
 
@@ -297,6 +454,7 @@
 
     .soft {
       color: rgba(255,255,255,.58);
+
       font-size: .94rem;
     }
 
@@ -304,17 +462,22 @@
       color: rgba(51,43,48,.6);
     }
 
-    /*
-      Button areas never shrink.
-      They remain visible at the bottom.
-    */
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
 
     .buttons {
       flex-shrink: 0;
+
       display: flex;
+
       flex-wrap: wrap;
+
       justify-content: center;
+
       gap: 11px;
+
       margin-top: 27px;
     }
 
@@ -323,7 +486,9 @@
     .choice,
     .memory-card {
       border: 0;
+
       cursor: pointer;
+
       transition:
         transform .2s ease,
         background .2s ease,
@@ -333,32 +498,45 @@
 
     button.primary {
       padding: 13px 22px;
+
       border-radius: 999px;
+
       background: #f4e5d2;
+
       color: #272130;
-      box-shadow: 0 8px 25px rgba(0,0,0,.18);
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
     }
 
     button.primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.25);
     }
 
     button.ghost {
       padding: 12px 20px;
+
       border: 1px solid rgba(255,255,255,.2);
+
       border-radius: 999px;
+
       background: rgba(255,255,255,.05);
+
       color: white;
     }
 
     button.ghost:hover {
       transform: translateY(-2px);
+
       background: rgba(255,255,255,.1);
     }
 
     body.sunrise button.ghost {
       color: #332b30;
+
       border-color: rgba(51,43,48,.2);
     }
 
@@ -366,45 +544,69 @@
       cursor: default;
     }
 
+
+    /* =========================================================
+       CHOICES
+    ========================================================= */
+
     .choice-grid {
       flex-shrink: 0;
+
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 12px;
+
       margin-top: 25px;
     }
 
     .choice {
       min-height: 105px;
+
       padding: 18px;
+
       border-radius: 20px;
+
       background: rgba(255,255,255,.06);
+
       color: white;
+
       border: 1px solid rgba(255,255,255,.09);
     }
 
     .choice:hover {
       transform: translateY(-4px);
+
       background: rgba(255,255,255,.1);
     }
 
     body.sunrise .choice {
       color: #332b30;
+
       background: rgba(255,255,255,.28);
+
       border-color: rgba(51,43,48,.1);
     }
 
     .choice strong {
       display: block;
+
       margin-bottom: 7px;
+
       font-size: 1.1rem;
     }
 
     .response {
       flex-shrink: 0;
+
       min-height: 58px;
+
       margin-top: 20px;
+
       color: #f2dfc7;
+
       line-height: 1.7;
     }
 
@@ -412,34 +614,55 @@
       color: #654c4b;
     }
 
+
+    /* =========================================================
+       MEMORY CARDS
+    ========================================================= */
+
     .memory-grid {
       flex-shrink: 0;
+
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 13px;
+
       margin-top: 25px;
     }
 
     .memory-card {
       min-height: 150px;
+
       padding: 20px 14px;
+
       border-radius: 22px;
+
       background: rgba(255,255,255,.055);
+
       border: 1px solid rgba(255,255,255,.1);
+
       color: white;
+
       text-align: center;
     }
 
     .memory-card:hover {
       transform: translateY(-4px);
+
       background: rgba(255,255,255,.09);
     }
 
     .memory-card .inside {
       display: none;
+
       margin-top: 12px;
+
       color: rgba(255,255,255,.76);
+
       line-height: 1.6;
+
       font-size: .9rem;
     }
 
@@ -449,7 +672,9 @@
 
     body.sunrise .memory-card {
       color: #332b30;
+
       background: rgba(255,255,255,.27);
+
       border-color: rgba(51,43,48,.1);
     }
 
@@ -457,40 +682,56 @@
       color: rgba(51,43,48,.72);
     }
 
-    /*
-      PAGE 7:
-      The letter takes the remaining card space.
-      Only the letter scrolls.
-      The Continue button stays visible.
-    */
+
+    /* =========================================================
+       PAGE 7 LETTER
+    ========================================================= */
 
     .letter {
       flex: 1 1 auto;
+
       min-height: 0;
+
       overflow-y: auto;
+      overflow-x: hidden;
+
       padding-right: 10px;
+
       text-align: left;
+
       -webkit-overflow-scrolling: touch;
+
       scrollbar-width: thin;
+
+      overscroll-behavior: contain;
     }
 
     .letter p {
       max-width: none;
+
       margin-bottom: 20px;
     }
 
-    /*
-      SECRET AREA
-    */
+
+    /* =========================================================
+       SECRET
+    ========================================================= */
 
     .secret {
-      flex-shrink: 0;
+      flex-shrink: 1;
+
       max-height: 0;
+
       overflow: hidden;
+
       opacity: 0;
+
       margin-top: 0;
+
       padding: 0 22px;
+
       border-radius: 22px;
+
       background: rgba(255,255,255,.05);
 
       transition:
@@ -502,51 +743,70 @@
 
     .secret.visible {
       max-height: 360px;
+
       opacity: 1;
+
       margin-top: 23px;
+
       padding: 23px 22px;
+
+      overflow-y: auto;
     }
 
     .secret p {
       font-size: 1rem;
     }
 
-    /*
-      PAGE 14:
-      The final message scrolls.
-      The final buttons are permanently visible.
-    */
+
+    /* =========================================================
+       FINAL PAGE
+    ========================================================= */
 
     .final-card {
       height: min(88vh, 760px);
+
       display: flex;
       flex-direction: column;
+
       overflow: hidden;
     }
 
     .final-message {
       flex: 1 1 auto;
+
       min-height: 0;
 
       overflow-y: auto;
       overflow-x: hidden;
 
       padding-right: 10px;
+
       -webkit-overflow-scrolling: touch;
 
       text-align: left;
+
       scrollbar-width: thin;
+
+      overscroll-behavior: contain;
     }
 
     .final-message p {
       max-width: none;
+
       margin-bottom: 20px;
     }
 
     .final-message .closing {
       text-align: center;
+
       margin-top: 25px;
-      font-size: clamp(1.2rem, 3vw, 1.55rem);
+
+      font-size: clamp(
+        1.2rem,
+        3vw,
+        1.55rem
+      );
+
       color: #f4e5d2;
     }
 
@@ -556,25 +816,43 @@
 
     .final-actions {
       flex: 0 0 auto;
+
       padding-top: 18px;
     }
 
+
+    /* =========================================================
+       PARTICLES
+    ========================================================= */
+
     .particle {
       position: fixed;
+
       width: 5px;
       height: 5px;
+
       border-radius: 50%;
+
       background: rgba(255,240,210,.75);
-      box-shadow: 0 0 12px rgba(255,240,210,.5);
+
+      box-shadow:
+        0 0 12px rgba(255,240,210,.5);
+
       pointer-events: none;
+
       z-index: 30;
-      animation: floatParticle 3.2s ease-out forwards;
+
+      animation:
+        floatParticle 3.2s ease-out forwards;
     }
 
     @keyframes floatParticle {
       0% {
         opacity: 0;
-        transform: translateY(15px) scale(.5);
+
+        transform:
+          translateY(15px)
+          scale(.5);
       }
 
       15% {
@@ -583,122 +861,627 @@
 
       100% {
         opacity: 0;
-        transform: translateY(-170px) scale(1.2);
+
+        transform:
+          translateY(-170px)
+          scale(1.2);
       }
     }
 
-    /*
-      MOBILE / TABLET
-    */
+
+    /* =========================================================
+       TABLET / MOBILE
+    ========================================================= */
 
     @media (max-width: 650px) {
+
+      /*
+        IMPORTANT:
+        The mobile card now uses dynamic viewport height.
+        This behaves better with Android browser bars.
+      */
+
       .scene {
-        padding: 68px 13px 15px;
+        padding:
+          58px
+          9px
+          9px;
       }
 
       .card {
         width: 100%;
-        height: 89vh;
-        max-height: 89vh;
-        border-radius: 24px;
-        padding: 24px 18px;
+
+        height:
+          calc(100dvh - 67px);
+
+        max-height:
+          calc(100dvh - 67px);
+
+        padding:
+          17px
+          14px;
+
+        border-radius: 20px;
       }
+
+
+      /* TOP BAR */
+
+      .topbar {
+        top: 9px;
+
+        left: 10px;
+        right: 10px;
+      }
+
+      #progress {
+        padding:
+          5px
+          9px;
+
+        font-size: .68rem;
+
+        letter-spacing: .06em;
+      }
+
+      #soundButton {
+        width: 34px;
+        height: 34px;
+
+        font-size: .9rem;
+      }
+
+
+      /* BACKGROUND */
 
       .moon {
-        width: 80px;
-        height: 80px;
+        width: 62px;
+        height: 62px;
+
         right: 7%;
-        top: 10%;
+        top: 9%;
       }
 
-      .choice-grid,
-      .memory-grid {
-        grid-template-columns: 1fr;
+      .sun {
+        width: 120px;
+        height: 120px;
       }
 
-      .choice {
-        min-height: 72px;
+
+      /* TEXT */
+
+      .eyebrow {
+        margin-bottom: 7px;
+
+        font-size: .63rem;
+
+        letter-spacing: .14em;
       }
 
-      .memory-card {
-        min-height: 90px;
+      h1 {
+        font-size:
+          clamp(
+            1.65rem,
+            7.5vw,
+            2.35rem
+          );
+
+        line-height: 1.08;
+
+        margin-bottom: 10px;
       }
+
+      h2 {
+        font-size:
+          clamp(
+            1.35rem,
+            6vw,
+            1.9rem
+          );
+
+        line-height: 1.12;
+
+        margin-bottom: 10px;
+      }
+
+      p {
+        max-width: 100%;
+
+        margin-bottom: 9px;
+
+        font-size:
+          clamp(
+            .84rem,
+            3.6vw,
+            .98rem
+          );
+
+        line-height: 1.48;
+      }
+
+      .soft {
+        font-size: .78rem;
+      }
+
+
+      /* BUTTONS */
 
       .buttons {
-        gap: 9px;
+        gap: 7px;
+
+        margin-top: 13px;
       }
 
       button.primary,
       button.ghost {
-        width: min(100%, 320px);
+        width: auto;
+
+        min-height: 38px;
+
+        padding:
+          9px
+          16px;
+
+        font-size: .84rem;
       }
 
-      .letter,
-      .final-message {
-        padding-right: 7px;
-      }
-    }
 
-    /*
-      Small-height devices:
-      reduce padding so the button area has enough room.
-    */
+      /* CHOICE GRID */
 
-    @media (max-height: 650px) {
-      .scene {
-        padding-top: 58px;
-        padding-bottom: 10px;
+      .choice-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        gap: 7px;
+
+        margin-top: 12px;
       }
 
-      .card {
-        height: 91vh;
-        padding: 20px 18px;
+      .choice {
+        min-height: 68px;
+
+        padding:
+          10px
+          7px;
+
+        border-radius: 14px;
+
+        font-size: .76rem;
+
+        line-height: 1.3;
       }
 
-      h1 {
-        font-size: clamp(2rem, 7vw, 3.4rem);
+      .choice strong {
+        margin-bottom: 3px;
+
+        font-size: .86rem;
       }
 
-      h2 {
-        font-size: clamp(1.6rem, 5vw, 2.4rem);
+
+      /* RESPONSE */
+
+      .response {
+        min-height: 38px;
+
+        margin-top: 10px;
+
+        font-size: .78rem;
+
+        line-height: 1.4;
       }
 
-      p {
-        line-height: 1.55;
+
+      /* MEMORY GRID */
+
+      .memory-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        gap: 7px;
+
+        margin-top: 12px;
+      }
+
+      .memory-card {
+        min-height: 82px;
+
+        padding:
+          10px
+          7px;
+
+        border-radius: 15px;
+
+        font-size: .76rem;
+
+        line-height: 1.35;
+      }
+
+      .memory-card strong {
+        font-size: .84rem;
+      }
+
+      .memory-card .inside {
+        margin-top: 6px;
+
+        font-size: .72rem;
+
+        line-height: 1.35;
+      }
+
+
+      /* LETTER */
+
+      .letter {
+        padding-right: 5px;
+      }
+
+      .letter p {
         margin-bottom: 12px;
       }
 
-      .buttons {
-        margin-top: 16px;
+
+      /* SECRET */
+
+      .secret {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .secret.visible {
+        max-height: 300px;
+
+        margin-top: 12px;
+
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+        overflow-y: auto;
+      }
+
+      .secret p {
+        font-size: .8rem;
+
+        line-height: 1.4;
+      }
+
+
+      /* FINAL PAGE */
+
+      .final-card {
+        height:
+          calc(100dvh - 67px);
+
+        max-height:
+          calc(100dvh - 67px);
+      }
+
+      .final-message {
+        padding-right: 5px;
+      }
+
+      .final-message p {
+        margin-bottom: 12px;
+      }
+
+      .final-message .closing {
+        margin-top: 15px;
+
+        font-size: 1rem;
+      }
+
+      .final-actions {
+        padding-top: 10px;
+      }
+
+      .final-actions button {
+        min-width: 120px;
       }
     }
 
-    /*
-      Accessibility:
-      users who prefer reduced motion get a calmer experience.
-    */
+
+    /* =========================================================
+       VERY SMALL PHONES
+    ========================================================= */
+
+    @media (max-width: 380px) {
+
+      .scene {
+        padding:
+          55px
+          7px
+          7px;
+      }
+
+      .card {
+        padding:
+          14px
+          11px;
+
+        border-radius: 18px;
+      }
+
+      .topbar {
+        top: 7px;
+
+        left: 8px;
+        right: 8px;
+      }
+
+      #progress {
+        padding:
+          4px
+          8px;
+
+        font-size: .62rem;
+      }
+
+      #soundButton {
+        width: 31px;
+        height: 31px;
+      }
+
+      h1 {
+        font-size: 1.55rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      p {
+        font-size: .78rem;
+
+        line-height: 1.4;
+      }
+
+      .choice {
+        min-height: 62px;
+
+        padding:
+          8px
+          5px;
+
+        font-size: .7rem;
+      }
+
+      .choice strong {
+        font-size: .78rem;
+      }
+
+      .memory-card {
+        min-height: 72px;
+
+        padding:
+          8px
+          5px;
+
+        font-size: .7rem;
+      }
+
+      .memory-card .inside {
+        font-size: .67rem;
+      }
+
+      button.primary,
+      button.ghost {
+        min-height: 35px;
+
+        padding:
+          8px
+          13px;
+
+        font-size: .76rem;
+      }
+
+      .buttons {
+        margin-top: 10px;
+      }
+    }
+
+
+    /* =========================================================
+       SHORT PHONE SCREENS
+    ========================================================= */
+
+    @media
+      (max-height: 700px)
+      and (max-width: 650px) {
+
+      .scene {
+        padding-top: 51px;
+        padding-bottom: 6px;
+      }
+
+      .card {
+        height:
+          calc(100dvh - 57px);
+
+        max-height:
+          calc(100dvh - 57px);
+
+        padding:
+          12px
+          12px;
+      }
+
+      .eyebrow {
+        margin-bottom: 5px;
+
+        font-size: .58rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+
+        margin-bottom: 7px;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+
+        margin-bottom: 7px;
+      }
+
+      p {
+        margin-bottom: 7px;
+
+        font-size: .76rem;
+
+        line-height: 1.35;
+      }
+
+      .choice-grid,
+      .memory-grid {
+        margin-top: 8px;
+
+        gap: 5px;
+      }
+
+      .choice {
+        min-height: 57px;
+
+        padding:
+          7px
+          5px;
+      }
+
+      .memory-card {
+        min-height: 65px;
+
+        padding:
+          7px
+          5px;
+      }
+
+      .buttons {
+        margin-top: 8px;
+
+        gap: 5px;
+      }
+
+      button.primary,
+      button.ghost {
+        min-height: 33px;
+
+        padding:
+          7px
+          12px;
+
+        font-size: .73rem;
+      }
+
+      .response {
+        margin-top: 7px;
+
+        min-height: 30px;
+
+        font-size: .72rem;
+      }
+
+      .final-actions {
+        padding-top: 7px;
+      }
+    }
+
+
+    /* =========================================================
+       EXTRA SMALL + SHORT PHONES
+    ========================================================= */
+
+    @media
+      (max-width: 380px)
+      and (max-height: 700px) {
+
+      .card {
+        padding:
+          10px
+          9px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      h2 {
+        font-size: 1.18rem;
+      }
+
+      p {
+        font-size: .72rem;
+
+        line-height: 1.3;
+      }
+
+      .choice {
+        min-height: 52px;
+
+        font-size: .66rem;
+      }
+
+      .choice strong {
+        font-size: .74rem;
+      }
+
+      .memory-card {
+        min-height: 58px;
+      }
+
+      button.primary,
+      button.ghost {
+        min-height: 31px;
+
+        padding:
+          6px
+          10px;
+
+        font-size: .7rem;
+      }
+    }
+
+
+    /* =========================================================
+       ACCESSIBILITY
+    ========================================================= */
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
         scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+
+        animation-duration:
+          .01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          .01ms !important;
       }
     }
   </style>
 </head>
 
+
 <body>
 
   <div class="stars"></div>
+
   <div class="moon"></div>
+
   <div class="sun"></div>
 
+
+  <!-- ========================================================
+       TOP BAR
+  ========================================================= -->
+
   <div class="topbar">
-    <div id="progress">01 / 14</div>
+
+    <div id="progress">
+      01 / 14
+    </div>
 
     <button
       id="soundButton"
@@ -707,14 +1490,19 @@
     >
       ♫
     </button>
+
   </div>
 
 
-  <!-- =========================
-       SCENE 1 — WELCOME
-  ========================== -->
+  <!-- ========================================================
+       SCENE 1
+  ========================================================= -->
 
-  <section class="scene active" id="scene1">
+  <section
+    class="scene active"
+    id="scene1"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -740,6 +1528,7 @@
       </p>
 
       <div class="buttons">
+
         <button
           class="primary"
           type="button"
@@ -747,17 +1536,23 @@
         >
           Come in ♡
         </button>
+
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 2 — BREATHE
-  ========================== -->
+  <!-- ========================================================
+       SCENE 2
+  ========================================================= -->
 
-  <section class="scene" id="scene2">
+  <section
+    class="scene"
+    id="scene2"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -788,6 +1583,7 @@
       </p>
 
       <div class="buttons">
+
         <button
           class="primary"
           type="button"
@@ -795,17 +1591,23 @@
         >
           I'm here
         </button>
+
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 3 — CHOOSE
-  ========================== -->
+  <!-- ========================================================
+       SCENE 3
+  ========================================================= -->
 
-  <section class="scene" id="scene3">
+  <section
+    class="scene"
+    id="scene3"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -828,6 +1630,7 @@
           onclick="chooseNeed('rest')"
         >
           <strong>🌙 Rest</strong>
+
           Let me put everything down.
         </button>
 
@@ -837,6 +1640,7 @@
           onclick="chooseNeed('comfort')"
         >
           <strong>🤍 Comfort</strong>
+
           I just need someone to understand.
         </button>
 
@@ -846,6 +1650,7 @@
           onclick="chooseNeed('hope')"
         >
           <strong>✨ Hope</strong>
+
           Remind me that things can change.
         </button>
 
@@ -871,14 +1676,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 4 — MEMORIES
-  ========================== -->
+  <!-- ========================================================
+       SCENE 4
+  ========================================================= -->
 
-  <section class="scene" id="scene4">
+  <section
+    class="scene"
+    id="scene4"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -900,6 +1710,7 @@
           type="button"
           onclick="openMemory(this)"
         >
+
           <strong>
             A hard day
           </strong>
@@ -909,6 +1720,7 @@
             Somehow, the day ended.
             And you were still here.
           </div>
+
         </button>
 
 
@@ -917,6 +1729,7 @@
           type="button"
           onclick="openMemory(this)"
         >
+
           <strong>
             A goodbye
           </strong>
@@ -927,6 +1740,7 @@
             But you slowly learned that endings aren't always
             the end of you.
           </div>
+
         </button>
 
 
@@ -935,6 +1749,7 @@
           type="button"
           onclick="openMemory(this)"
         >
+
           <strong>
             A beginning
           </strong>
@@ -944,6 +1759,7 @@
             what the future would look like.
             And yet, here you are.
           </div>
+
         </button>
 
       </div>
@@ -963,14 +1779,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 5 — REST
-  ========================== -->
+  <!-- ========================================================
+       SCENE 5
+  ========================================================= -->
 
-  <section class="scene" id="scene5">
+  <section
+    class="scene"
+    id="scene5"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1012,14 +1833,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 6 — NO JUDGMENT
-  ========================== -->
+  <!-- ========================================================
+       SCENE 6
+  ========================================================= -->
 
-  <section class="scene" id="scene6">
+  <section
+    class="scene"
+    id="scene6"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1042,6 +1868,7 @@
           onclick="showChoice('rest')"
         >
           <strong>🌙 Rest</strong>
+
           A night without guilt.
         </button>
 
@@ -1051,6 +1878,7 @@
           onclick="showChoice('cry')"
         >
           <strong>💧 Cry</strong>
+
           Finally let it out.
         </button>
 
@@ -1060,6 +1888,7 @@
           onclick="showChoice('hope')"
         >
           <strong>✨ Hope</strong>
+
           Believe again, even a little.
         </button>
 
@@ -1085,14 +1914,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 7 — LETTER
-  ========================== -->
+  <!-- ========================================================
+       SCENE 7
+  ========================================================= -->
 
-  <section class="scene" id="scene7">
+  <section
+    class="scene"
+    id="scene7"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1218,14 +2052,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 8 — STAY
-  ========================== -->
+  <!-- ========================================================
+       SCENE 8
+  ========================================================= -->
 
-  <section class="scene" id="scene8">
+  <section
+    class="scene"
+    id="scene8"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1285,14 +2124,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 9 — SECRET
-  ========================== -->
+  <!-- ========================================================
+       SCENE 9
+  ========================================================= -->
 
-  <section class="scene" id="scene9">
+  <section
+    class="scene"
+    id="scene9"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1362,14 +2206,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 10 — FUTURE SELF
-  ========================== -->
+  <!-- ========================================================
+       SCENE 10
+  ========================================================= -->
 
-  <section class="scene" id="scene10">
+  <section
+    class="scene"
+    id="scene10"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1418,14 +2267,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 11 — PROMISE
-  ========================== -->
+  <!-- ========================================================
+       SCENE 11
+  ========================================================= -->
 
-  <section class="scene" id="scene11">
+  <section
+    class="scene"
+    id="scene11"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1448,6 +2302,7 @@
           onclick="makePromise('rest')"
         >
           <strong>🌙 Rest</strong>
+
           I'll let myself rest.
         </button>
 
@@ -1457,6 +2312,7 @@
           onclick="makePromise('try')"
         >
           <strong>🌱 Try again</strong>
+
           I'll try again when I can.
         </button>
 
@@ -1466,6 +2322,7 @@
           onclick="makePromise('kind')"
         >
           <strong>🤍 Be kind</strong>
+
           I'll be gentler with myself.
         </button>
 
@@ -1491,14 +2348,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 12 — DAWN
-  ========================== -->
+  <!-- ========================================================
+       SCENE 12
+  ========================================================= -->
 
-  <section class="scene" id="scene12">
+  <section
+    class="scene"
+    id="scene12"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1537,14 +2399,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 13 — MORNING
-  ========================== -->
+  <!-- ========================================================
+       SCENE 13
+  ========================================================= -->
 
-  <section class="scene" id="scene13">
+  <section
+    class="scene"
+    id="scene13"
+  >
+
     <div class="card">
 
       <div class="eyebrow">
@@ -1591,14 +2458,19 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- =========================
-       SCENE 14 — FINAL
-  ========================== -->
+  <!-- ========================================================
+       SCENE 14
+  ========================================================= -->
 
-  <section class="scene" id="scene14">
+  <section
+    class="scene"
+    id="scene14"
+  >
+
     <div class="card final-card">
 
       <div class="eyebrow">
@@ -1801,26 +2673,37 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- MUSIC -->
+  <!-- ========================================================
+       MUSIC
+  ========================================================= -->
+
   <audio
     id="bgMusic"
     loop
     preload="auto"
   >
+
     <source
       src="music.mp3"
       type="audio/mpeg"
     >
+
   </audio>
 
 
   <script>
+    /* =========================================================
+       STATE
+    ========================================================= */
+
     const totalPages = 14
 
     let currentPage = 1
+
     let musicStarted = false
 
     const progress =
@@ -1833,13 +2716,12 @@
       document.getElementById("soundButton")
 
 
-    /*
-      =========================
-      PAGE NAVIGATION
-      =========================
-    */
+    /* =========================================================
+       PAGE NAVIGATION
+    ========================================================= */
 
     function showPage(pageNumber) {
+
       if (
         pageNumber < 1 ||
         pageNumber > totalPages
@@ -1871,6 +2753,20 @@
 
       updateTheme()
 
+      /*
+        Reset scroll position whenever
+        a new page opens.
+      */
+
+      const scrollable =
+        selectedScene.querySelector(
+          ".letter, .final-message, .secret.visible"
+        )
+
+      if (scrollable) {
+        scrollable.scrollTop = 0
+      }
+
       if (currentPage === 2) {
         createParticles(10)
       }
@@ -1886,6 +2782,7 @@
 
 
     function nextPage() {
+
       if (currentPage < totalPages) {
         showPage(currentPage + 1)
       }
@@ -1893,26 +2790,31 @@
 
 
     function previousPage() {
+
       if (currentPage > 1) {
         showPage(currentPage - 1)
       }
     }
 
 
-    /*
-      =========================
-      PAGE 3
-      =========================
-    */
+    /* =========================================================
+       PAGE 3
+    ========================================================= */
 
     function chooseNeed(type) {
+
       const message =
-        document.getElementById("needMessage")
+        document.getElementById(
+          "needMessage"
+        )
 
       const continueButton =
-        document.getElementById("needContinue")
+        document.getElementById(
+          "needContinue"
+        )
 
       const messages = {
+
         rest:
           "Then rest. You don't need permission from anyone else. Put down the things you cannot carry tonight.",
 
@@ -1931,34 +2833,34 @@
     }
 
 
-    /*
-      =========================
-      PAGE 4
-      =========================
-    */
+    /* =========================================================
+       PAGE 4
+    ========================================================= */
 
     function openMemory(card) {
+
       card.classList.add("open")
 
       document.getElementById(
         "memoryContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
     }
 
 
-    /*
-      =========================
-      PAGE 6
-      =========================
-    */
+    /* =========================================================
+       PAGE 6
+    ========================================================= */
 
     function showChoice(choice) {
+
       const response =
         document.getElementById(
           "choiceResponse"
         )
 
       const messages = {
+
         rest:
           "Then let that be enough for tonight. You don't have to explain why you need rest. Needing something doesn't make you weak.",
 
@@ -1974,48 +2876,56 @@
 
       document.getElementById(
         "choiceContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
     }
 
 
-    /*
-      =========================
-      PAGE 8
-      =========================
-    */
+    /* =========================================================
+       PAGE 8
+    ========================================================= */
 
     function stayResponse(staying) {
+
       const message =
         document.getElementById(
           "stayMessage"
         )
 
       if (staying) {
+
         message.textContent =
           "Then stay. You don't have to do anything else. Just let this little place hold you for another moment."
+
       } else {
+
         message.textContent =
           "That's okay. You don't have to know. Sometimes making it through the next few minutes is already enough."
+
       }
 
       document.getElementById(
         "stayContinue"
-      ).style.display = "inline-block"
+      ).style.display =
+        "inline-block"
     }
 
 
-    /*
-      =========================
-      PAGE 9
-      =========================
-    */
+    /* =========================================================
+       PAGE 9
+    ========================================================= */
 
     function revealSecret() {
+
       const secret =
-        document.getElementById("secret")
+        document.getElementById(
+          "secret"
+        )
 
       const button =
-        document.getElementById("secretButton")
+        document.getElementById(
+          "secretButton"
+        )
 
       secret.classList.add("visible")
 
@@ -2023,19 +2933,19 @@
         "The secret is yours ♡"
 
       button.disabled = true
+
       button.style.opacity = ".7"
 
       createParticles(20)
     }
 
 
-    /*
-      =========================
-      PAGE 11
-      =========================
-    */
+    /* =========================================================
+       PAGE 11
+    ========================================================= */
 
     function makePromise(type) {
+
       const message =
         document.getElementById(
           "promiseMessage"
@@ -2047,6 +2957,7 @@
         )
 
       const messages = {
+
         rest:
           "Good. Rest is not quitting. Rest is how you give yourself enough strength to continue.",
 
@@ -2065,88 +2976,119 @@
     }
 
 
-    /*
-      =========================
-      PAGE 12
-      =========================
-    */
+    /* =========================================================
+       PAGE 12
+    ========================================================= */
 
     function watchMorning() {
-      document.body.classList.remove("sunrise")
 
-      document.body.classList.add("dawn")
+      document.body.classList.remove(
+        "sunrise"
+      )
+
+      document.body.classList.add(
+        "dawn"
+      )
 
       createParticles(30)
 
       setTimeout(() => {
+
         showPage(13)
+
       }, 1400)
     }
 
 
-    /*
-      =========================
-      THEME
-      =========================
-    */
+    /* =========================================================
+       THEME
+    ========================================================= */
 
     function updateTheme() {
+
       document.body.classList.remove(
         "dawn",
         "sunrise"
       )
 
       if (currentPage === 12) {
-        document.body.classList.add("dawn")
+
+        document.body.classList.add(
+          "dawn"
+        )
       }
 
       if (
         currentPage === 13 ||
         currentPage === 14
       ) {
-        document.body.classList.add("sunrise")
+
+        document.body.classList.add(
+          "sunrise"
+        )
       }
     }
 
 
-    /*
-      =========================
-      MUSIC
-      =========================
-    */
+    /* =========================================================
+       MUSIC
+    ========================================================= */
 
     function startMusic() {
+
       music.volume = 0.32
 
-      music.play()
+      music
+        .play()
         .then(() => {
+
           musicStarted = true
-          soundButton.textContent = "♫"
+
+          soundButton.textContent =
+            "♫"
+
         })
         .catch(() => {
-          soundButton.textContent = "♫"
+
+          soundButton.textContent =
+            "♫"
+
         })
     }
 
 
     function startExperience() {
+
       startMusic()
+
       nextPage()
     }
 
 
     function toggleSound() {
+
       if (!musicStarted) {
+
         startMusic()
+
         return
       }
 
       if (music.paused) {
-        music.play().catch(() => {})
-        soundButton.textContent = "♫"
+
+        music
+          .play()
+          .catch(() => {})
+
+        soundButton.textContent =
+          "♫"
+
       } else {
+
         music.pause()
-        soundButton.textContent = "×"
+
+        soundButton.textContent =
+          "×"
       }
     }
 
@@ -2157,17 +3099,24 @@
     )
 
 
-    /*
-      =========================
-      PARTICLES
-      =========================
-    */
+    /* =========================================================
+       PARTICLES
+    ========================================================= */
 
-    function createParticles(amount = 15) {
-      for (let i = 0; i < amount; i++) {
+    function createParticles(
+      amount = 15
+    ) {
+
+      for (
+        let i = 0;
+        i < amount;
+        i++
+      ) {
 
         const particle =
-          document.createElement("div")
+          document.createElement(
+            "div"
+          )
 
         particle.className =
           "particle"
@@ -2186,19 +3135,20 @@
         )
 
         setTimeout(() => {
+
           particle.remove()
+
         }, 3200)
       }
     }
 
 
-    /*
-      =========================
-      RESTART
-      =========================
-    */
+    /* =========================================================
+       RESTART
+    ========================================================= */
 
     function restartExperience() {
+
       currentPage = 1
 
       document.body.classList.remove(
@@ -2206,14 +3156,21 @@
         "sunrise"
       )
 
+
       /*
         Reset memory cards
       */
 
       document
-        .querySelectorAll(".memory-card")
+        .querySelectorAll(
+          ".memory-card"
+        )
         .forEach(card => {
-          card.classList.remove("open")
+
+          card.classList.remove(
+            "open"
+          )
+
         })
 
 
@@ -2244,23 +3201,28 @@
 
       document.getElementById(
         "needContinue"
-      ).style.display = "none"
+      ).style.display =
+        "none"
 
       document.getElementById(
         "memoryContinue"
-      ).style.display = "none"
+      ).style.display =
+        "none"
 
       document.getElementById(
         "choiceContinue"
-      ).style.display = "none"
+      ).style.display =
+        "none"
 
       document.getElementById(
         "stayContinue"
-      ).style.display = "none"
+      ).style.display =
+        "none"
 
       document.getElementById(
         "promiseContinue"
-      ).style.display = "none"
+      ).style.display =
+        "none"
 
 
       /*
@@ -2268,21 +3230,44 @@
       */
 
       const secret =
-        document.getElementById("secret")
+        document.getElementById(
+          "secret"
+        )
 
       const secretButton =
         document.getElementById(
           "secretButton"
         )
 
-      secret.classList.remove("visible")
+      secret.classList.remove(
+        "visible"
+      )
 
-      secretButton.disabled = false
+      secret.scrollTop = 0
 
-      secretButton.style.opacity = "1"
+      secretButton.disabled =
+        false
+
+      secretButton.style.opacity =
+        "1"
 
       secretButton.textContent =
         "Open the secret"
+
+
+      /*
+        Reset scrollable areas
+      */
+
+      document
+        .querySelectorAll(
+          ".letter, .final-message"
+        )
+        .forEach(element => {
+
+          element.scrollTop = 0
+
+        })
 
 
       /*
@@ -2291,23 +3276,16 @@
 
       showPage(1)
 
-      window.scrollTo(0, 0)
+      window.scrollTo(
+        0,
+        0
+      )
     }
 
 
-    /*
-      =========================
-      KEYBOARD NAVIGATION
-      =========================
-
-      Important:
-      If a button is focused, keyboard navigation
-      will not accidentally trigger a second action.
-
-      If the visitor is reading inside a long message,
-      arrow keys and space remain available for normal
-      scrolling.
-    */
+    /* =========================================================
+       KEYBOARD NAVIGATION
+    ========================================================= */
 
     document.addEventListener(
       "keydown",
@@ -2334,8 +3312,8 @@
 
 
         /*
-          Don't hijack keys while the user
-          is interacting with a button/input.
+          Don't hijack keys while
+          interacting with controls.
         */
 
         if (interactive) {
@@ -2344,35 +3322,47 @@
 
 
         /*
-          Don't hijack keys while reading
-          scrollable text.
+          Don't hijack keys while
+          reading long content.
         */
 
-        if (finalMessage || letter) {
+        if (
+          finalMessage ||
+          letter
+        ) {
           return
         }
 
 
         if (
-          event.key === "ArrowRight"
+          event.key ===
+          "ArrowRight"
         ) {
+
           event.preventDefault()
+
           nextPage()
         }
 
 
         if (
-          event.key === "ArrowLeft"
+          event.key ===
+          "ArrowLeft"
         ) {
+
           event.preventDefault()
+
           previousPage()
         }
 
 
         if (
-          event.key === " "
+          event.key ===
+          " "
         ) {
+
           event.preventDefault()
+
           nextPage()
         }
 
@@ -2380,13 +3370,12 @@
     )
 
 
-    /*
-      =========================
-      INITIALIZE
-      =========================
-    */
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
 
     showPage(1)
+
   </script>
 
 </body>
